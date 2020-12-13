@@ -19,7 +19,7 @@ namespace Covid19.Models.Managers
         public IEnumerable<CountriesDeathsVsDensity2020> GetByDeaths(string orderBy)
         {
             List<object[]> listByDeaths = mySqlDB.GetSqlListWithoutParameters("select distinct Country, Cumulative_cases, Cumulative_deaths, PopTotal, PopDensity " +
-                "from (select distinct * from who_covid_19_global_data where Date_reported = '2020-11-16') sick " +
+                "from (select distinct * from who_covid_19_global_data where Date_reported = '16/11/2020') sick " +
                 "inner join (select distinct * from population_worldwide where time = 2020) density on sick.Country = density.Location " +
                 "order by sick.Cumulative_deaths " + orderBy);
             return GlobalFunction.ConvertListObjectByGeneric<CountriesDeathsVsDensity2020>(listByDeaths, ConvertObjectCountriesDeathsVsDensity2020);
@@ -28,7 +28,7 @@ namespace Covid19.Models.Managers
         public IEnumerable<CountriesDeathsVsDensity2020> GetByDensity(string orderBy)
         {
             List<object[]> listByDensity = mySqlDB.GetSqlListWithoutParameters("select distinct Country, Cumulative_cases, Cumulative_deaths, PopTotal, PopDensity " +
-                "from (select distinct * from who_covid_19_global_data where Date_reported = '2020-11-16') sick " +
+                "from (select distinct * from who_covid_19_global_data where Date_reported = '16/11/2020') sick " +
                 "inner join (select distinct * from population_worldwide where time = 2020) density on sick.Country = density.Location " +
                 "order by density.PopDensity " + orderBy);
             return GlobalFunction.ConvertListObjectByGeneric<CountriesDeathsVsDensity2020>(listByDensity, ConvertObjectCountriesDeathsVsDensity2020);
@@ -36,7 +36,7 @@ namespace Covid19.Models.Managers
         public IEnumerable<CountriesDeathsVsDensity2020> GetBySick(string orderBy)
         {
             List<object[]> listBySick = mySqlDB.GetSqlListWithoutParameters("select distinct Country, Cumulative_cases, Cumulative_deaths, PopTotal, PopDensity " +
-                "from (select distinct * from who_covid_19_global_data where Date_reported = '2020-11-16') sick " +
+                "from (select distinct * from who_covid_19_global_data where Date_reported = '16/11/2020') sick " +
                 "inner join (select distinct * from population_worldwide where time = 2020) density on sick.Country = density.Location " +
                 "order by density.Cumulative_cases " + orderBy);
             return GlobalFunction.ConvertListObjectByGeneric<CountriesDeathsVsDensity2020>(listBySick, ConvertObjectCountriesDeathsVsDensity2020);
