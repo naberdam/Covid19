@@ -20,29 +20,31 @@ namespace Covid19.Controllers
         {
             countriesSickOrDeathsThisDay = iCountriesSickOrDeathsThisDay;
         }
-
-        // GET: api/CountriesSickOrDeathsThisDay?sickOrDeath=Deaths&dateReported=04/05/2020
+        //"?sickOrDeaths=Death&dateReported=2020-12-15"
+        //"?sickOrDeath=Deaths&dateReported=2020-09-09"
+        // GET: api/CountriesSickOrDeathsThisDay?sickOrDeath=Deaths&dateReported=2020-09-09
         [HttpGet]
         public ActionResult<IEnumerable<CountriesSickOrDeathsThisDay>> GetCountriesSickOrDeathsThisDay([FromQuery] string sickOrDeath, [FromQuery] string dateReported)
         {
             string urlRequest = Request.QueryString.Value;
-            string patternUrl = @"^(\?sickOrDeath=Deaths)+&(dateReported=(\d{2})\/(\d{2})\/(\d{4}))$";
+            string patternUrl = @"^(\?sickOrDeath=Deaths)+&(dateReported=(\d{4})\-(\d{2})\-(\d{2}))$";
             if (!Regex.IsMatch(urlRequest, patternUrl))
             {
                 return BadRequest();
             }
-            string patternDateReported = @"^(\d{2})\/(\d{2})\/(\d{4})?";
+            string patternDateReported = @"^(\d{4})\-(\d{2})\-(\d{2})?";
             if (!Regex.IsMatch(dateReported, patternDateReported))
             {
                 return BadRequest();
             }
+            string convertDate = "" + dateReported[8] + dateReported[9] + "/" + dateReported[5] + dateReported[6] + "/" + dateReported[0] + dateReported[1] + dateReported[2]+ dateReported[3];
             switch (sickOrDeath)
             {
                 case "Deaths":
-                    IEnumerable<CountriesSickOrDeathsThisDay> listDeaths = countriesSickOrDeathsThisDay.GetCountriesMaxDeathsThisDay(dateReported);
+                    IEnumerable<CountriesSickOrDeathsThisDay> listDeaths = countriesSickOrDeathsThisDay.GetCountriesMaxDeathsThisDay(convertDate);
                     return GlobalFunction.CheckResultAndReturnByGeneric<CountriesSickOrDeathsThisDay>(listDeaths, NotFound, Ok);
                 case "Sick":
-                    IEnumerable<CountriesSickOrDeathsThisDay> listSick = countriesSickOrDeathsThisDay.GetCountriesMaxSickThisDay(dateReported);
+                    IEnumerable<CountriesSickOrDeathsThisDay> listSick = countriesSickOrDeathsThisDay.GetCountriesMaxSickThisDay(convertDate);
                     return GlobalFunction.CheckResultAndReturnByGeneric<CountriesSickOrDeathsThisDay>(listSick, NotFound, Ok);
                 default:
                     return BadRequest();
