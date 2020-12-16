@@ -55,7 +55,7 @@ namespace Covid19
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseFileServer();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
