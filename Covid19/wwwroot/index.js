@@ -102,7 +102,9 @@ function addMarker(MyLatLong, country, number, state, date) {
 
 function onSubmitLeastOrMostSpecificDate(event) {
     event.preventDefault();
-    const url = "/api/CountriesSickOrDeathsThisDay/?sickOrDeath=" + event.target.elements.state.value + "&dateReported=" + event.target.elements.fromDate.value;
+    date = event.target.elements.date.value;
+    let convertedDate = "" + date[8] + date[9] + "/" + date[5] + date[6] + "/" + date[0] + date[1] + date[2] + date[3];
+    const url = "/api/CountriesSickOrDeathsThisDay/?sickOrDeath=" + event.target.elements.state.value + "&dateReported=" + event.target.elements.date.value;
     $.ajax({
         url: url,
         type: "GET",
@@ -110,7 +112,7 @@ function onSubmitLeastOrMostSpecificDate(event) {
             const country = data[0].country;
             const number = data[0].newCases;
             var latLong = getLatLong(country);
-            addMarker(latLong, country, number, event.target.elements.state.value, event.target.elements.fromDate.value);
+            addMarker(latLong, country, number, event.target.elements.state.value, event.target.elements.date.value);
 
         },
         error: function (request) {
@@ -144,8 +146,8 @@ function getLatLong(country) {
 
 function onSubmitSpecificCountrySpecificDateDeathOrSick(event) {
     alert("sending query");
-    const url = "/api/CountryDatas?country=" + event.target.elements.country.value + "?fromDate" + event.target.elements.fromDate.value +
-        "?toDate" + event.target.elements.toDate.value + "?state" + event.target.elements.state.value;
+    const url = "/api/CountryDatas?country=" + event.target.elements.country.value + "?fromDate" + event.target.elements.date.value +
+        "?toDate" + event.target.elements.date.value + "?state" + event.target.elements.state.value;
     alert(url);
 
     $.ajax({
