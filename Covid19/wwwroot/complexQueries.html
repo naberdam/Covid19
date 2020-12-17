@@ -7,71 +7,109 @@
     <script src="complexQueries.js"></script>
     <link rel="stylesheet" href="complexQueries.css">
 
-</head>
-<body>
-    <div class="grid-container">
-        <div class="nevigate">
-            <button id="toBasic" type="button" onclick="onSubmitNevigate(event)">Basic Queries</button>
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    </head>
+    <body> 
+        <div class="grid-container">
+            <div class="container-contact100">
+                <div class="wrap-contact100">
+                    <form class="contact100-form validate-form" onsubmit="onsubmitComplex(event)">
+                        <span class="contact100-form-title">
+                            What do you want to know?
+                        </span>
+                        <label>
+                            Please tell me the number of sick and dead
+                        </label>
+                        <div class="count">
+                            <select id="count" name="state">
+                                <option disabled selected value> -- select an option -- </option>
+                                <option value="perMillion">per million people</option>
+                                <option value="totalNumber">(total number)</option>
+                            </select>
+                        </div>
+                        <label>from Corona in each country on date</label>
+                        <div class="date">
+                            <label for="date">date:</label>
+                            <input type="date" id="toDate" name="date"
+                                   value=today
+                                   min="2019-12-01" max="2022-12-31">
+                        </div>
+                        <label>order by</label>
+                        <div class="orederBy">
+                            <select id="orderBy" name="orderBy" onchange="checkOrderBy(this.value)">
+                                <option disabled selected value> -- select an option -- </option>
+                                <option value="Gdp">gdp</option>
+                                <option value="Deaths">Dead</option>
+                                <option value="Sick">Sick</option>
+                                <option value="density"> density growt</option>
+                            </select>
+                            <label id="labelForDensity" style="display:none"> choose number of years to calculate density growth</label>
+                            <input type="text" id="numberOfYears" name="numberOfYears" style="display:none" />
+                        </div>
+                        <label>in</label>
+                        <div class="descOrAsc">
+                            <select id="descOrAsc" name="descOrAsc">
+                                <option disabled selected value> -- select an option -- </option>
+                                <option value="desc">desc order</option>
+                                <option value="asc">asc order</option>
+                            </select>
+                        </div>
+
+
+                        <div class="container-contact100-form-btn">
+                            <div class="wrap-contact100-form-btn">
+                                <div class="contact100-form-bgbtn"></div>
+                                <button class="contact100-form-btn">
+                                    <span>
+                                        Tell me
+                                        <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                    <div class="container-contact100-form-btn" onclick="onSubmitNevigate(event)">
+                        <div class="wrap-contact100-form-btn">
+                            <div class="contact100-form-bgbtn"></div>
+                            <button class="contact100-form-btn">
+                                <span>
+                                    Please show me basic data on the map
+                                    <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div style="width: 50%; height: 700px; overflow: auto; margin:50px;">
+                    <div class="limiter">
+                        <div class="container-table100">
+                            <div class="wrap-table100">
+                                <div class="table100">
+                                    <table id="results"></table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="query">
-            <form onsubmit="onsubmitCountrySickDeathsAndGdpByGDP(event)">
-                <h2>Choose Your Query:</h2>
-                <label for="state"> Get</label>
-                <div class="state">
-                    <select id="state" name="state">
-                        <option disabled selected value> -- select an option -- </option>
-                        <option value="perMillion">number per million people</option>
-                        <option value="totalNumber">total number</option>
-                    </select>
-                </div>
-                <label for="state"> of sick people and dead people from coronavirus in each country on</label>
-                <!--<div class="state">
-                    <select id="state" name="state">
-                        <option disabled selected value> -- select an option -- </option>
-                        <option value="sick">Sick</option>
-                        <option value="dead">Dead</option>
-                    </select>
-                    <label"> from coronavirus in each country on</label>
-                </div>-->
-                <div class="date">
-                    <label for="date">date:</label>
-                    <input type="date" id="toDate" name="date"
-                           value=today
-                           min="2019-12-01" max="2022-12-31">
-                </div>
-                <div class="orederBy">
-                    <label for="orderBy">order by:</label>
-                    <select id="orderBy" name="orderBy" onchange="checkOrderBy(this.value)">
-                        <option disabled selected value> -- select an option -- </option>
-                        <option value="gdp">gdp</option>
-                        <option value="Death">Dead</option>
-                        <option value="Sick">Sick</option>
-                        <option value="density"> density growt</option>
-                    </select>
-                    <label id="labelForDensity" style="display:none"> choose number of years to calculate density growth</label>
-                    <input type="text" id="numberOfYears" name="numberOfYears" style="display:none" />
-                </div>
-                <div class="descOrAsc">
-                    <select id="descOrAsc" name="descOrAsc">
-                        <option disabled selected value> -- select an option -- </option>
-                        <option value="desc">desc</option>
-                        <option value="asc">asc</option>
-                    </select>
-                </div>
-
-
-                <div class="submitButton">
-                    <input id="submit" type="submit" value="get answer!">
-                </div>
-
-
-            </form>
-        </div>
-    </div>
-    <div style="width: 100%; height: 450px; overflow: auto">
-        <table id="results" ></table>
-    </div>
    
-</body>
-</htm
+    </body>
+</html>

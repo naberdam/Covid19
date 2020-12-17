@@ -19,10 +19,11 @@
     background-color: #ddd;
 }
 
-#results th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #4CAF50;
-    color: white;
-}
+
+    #results th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #4db8ff;
+        color: white;
+    }
