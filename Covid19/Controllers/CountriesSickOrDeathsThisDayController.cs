@@ -27,8 +27,9 @@ namespace Covid19.Controllers
         public ActionResult<IEnumerable<CountriesSickOrDeathsThisDay>> GetCountriesSickOrDeathsThisDay([FromQuery] string sickOrDeath, [FromQuery] string dateReported)
         {
             string urlRequest = Request.QueryString.Value;
-            string patternUrl = @"^(\?sickOrDeath=Deaths)+&(dateReported=(\d{4})\-(\d{2})\-(\d{2}))$";
-            if (!Regex.IsMatch(urlRequest, patternUrl))
+            string patternUrlDeaths = @"^(\?sickOrDeath=Deaths)+&(dateReported=(\d{4})\-(\d{2})\-(\d{2}))$";
+            string patternUrlSick = @"^(\?sickOrDeath=Sick)+&(dateReported=(\d{4})\-(\d{2})\-(\d{2}))$";
+            if (!Regex.IsMatch(urlRequest, patternUrlDeaths) && !Regex.IsMatch(urlRequest, patternUrlSick))
             {
                 return BadRequest();
             }
