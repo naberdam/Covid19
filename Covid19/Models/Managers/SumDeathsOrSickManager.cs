@@ -44,5 +44,37 @@ namespace Covid19.Models.Managers
                 return null;
             }
         }
+
+        public IEnumerable<SumDeathsOrSick> GetSickToday(string dateReported, string country)
+        {
+            List<object[]> listSick = mySqlDB.GetSqlListWithoutParameters("select New_cases " +
+                "from who_covid_19_global_data " +
+                "where Date_reported = '" + dateReported + "' and Country = '" + country +"'");
+            return GlobalFunction.ConvertListObjectByGeneric<SumDeathsOrSick>(listSick, ConvertObjectSumDeathsOrSick);
+        }
+
+        public IEnumerable<SumDeathsOrSick> GetSickCumulative(string dateReported, string country)
+        {
+            List<object[]> listSick = mySqlDB.GetSqlListWithoutParameters("select Cumulative_cases " +
+                "from who_covid_19_global_data " +
+                "where Date_reported = '" + dateReported + "' and Country = '" + country + "'");
+            return GlobalFunction.ConvertListObjectByGeneric<SumDeathsOrSick>(listSick, ConvertObjectSumDeathsOrSick);
+        }
+
+        public IEnumerable<SumDeathsOrSick> GetDeathsToday(string dateReported, string country)
+        {
+            List<object[]> listSick = mySqlDB.GetSqlListWithoutParameters("select New_deaths " +
+                "from who_covid_19_global_data " +
+                "where Date_reported = '" + dateReported + "' and Country = '" + country + "'");
+            return GlobalFunction.ConvertListObjectByGeneric<SumDeathsOrSick>(listSick, ConvertObjectSumDeathsOrSick);
+        }
+
+        public IEnumerable<SumDeathsOrSick> GetDeathsCumulative(string dateReported, string country)
+        {
+            List<object[]> listSick = mySqlDB.GetSqlListWithoutParameters("select Cumulative_deaths " +
+                "from who_covid_19_global_data " +
+                "where Date_reported = '" + dateReported + "' and Country = '" + country + "'");
+            return GlobalFunction.ConvertListObjectByGeneric<SumDeathsOrSick>(listSick, ConvertObjectSumDeathsOrSick);
+        }
     }
 }
