@@ -43,5 +43,27 @@ namespace Covid19.Models.Managers
                 return null;
             }
         }
+
+        public IEnumerable<CountrySickDeathsAndGdpByGdp> GetByDeaths(string orderBy, string date)
+        {
+            List<object[]> listOfDeaths = mySqlDB.GetSqlListWithoutParameters("select distinct sick.Country, Cumulative_cases, Cumulative_deaths, gdp.2020 as GDP " +
+                "from (select Country, gdp.2020 from gdp) gdp " +
+                "inner join " +
+                "(select * " +
+                "from who_covid_19_global_data where Date_reported = '" + date + "') as sick on sick.Country = gdp.Country " +
+                "order by Cumulative_deaths " + orderBy);
+            return GlobalFunction.ConvertListObjectByGeneric<CountrySickDeathsAndGdpByGdp>(listOfDeaths, ConvertObjectCountrySickDeathsAndGdpByGdp);
+        }
+
+        public IEnumerable<CountrySickDeathsAndGdpByGdp> GetBySick(string orderBy, string date)
+        {
+            List<object[]> listOfSick = mySqlDB.GetSqlListWithoutParameters("select distinct sick.Country, Cumulative_cases, Cumulative_deaths, gdp.2020 as GDP " +
+                "from (select Country, gdp.2020 from gdp) gdp " +
+                "inner join " +
+                "(select * " +
+                "from who_covid_19_global_data where Date_reported = '" + date + "') as sick on sick.Country = gdp.Country " +
+                "order by Cumulative_cases " + orderBy);
+            return GlobalFunction.ConvertListObjectByGeneric<CountrySickDeathsAndGdpByGdp>(listOfSick, ConvertObjectCountrySickDeathsAndGdpByGdp);
+        }
     }
 }

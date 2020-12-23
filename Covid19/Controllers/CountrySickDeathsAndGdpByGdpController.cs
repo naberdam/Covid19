@@ -21,12 +21,23 @@ namespace Covid19.Controllers
         }
         // GET: api/CountrySickDeathsAndGdpByGdp
         [HttpGet]
-        public ActionResult<IEnumerable<CountrySickDeathsAndGdpByGdp>> GetCountrySickDeathsAndGdpByGdp([FromQuery] string date, [FromQuery] bool desc = false)
+        public ActionResult<IEnumerable<CountrySickDeathsAndGdpByGdp>> GetCountrySickDeathsAndGdpByGdp([FromQuery] string date, [FromQuery] string gdpSickOrDeaths, [FromQuery] bool desc = false)
         {
             string orderBy = GlobalFunction.ConvertToOrderBy(desc);
-            IEnumerable<CountrySickDeathsAndGdpByGdp> listSick =
-                        countrySickDeathsAndGdpByGdpManager.GetByGdp(orderBy, date);
-            return GlobalFunction.CheckResultAndReturnByGeneric<CountrySickDeathsAndGdpByGdp>(listSick, NotFound, Ok);
+            switch (gdpSickOrDeaths)
+            {
+                case "Gdp":
+                    IEnumerable<CountrySickDeathsAndGdpByGdp> listGdp = countrySickDeathsAndGdpByGdpManager.GetByGdp(orderBy, date);
+                    return GlobalFunction.CheckResultAndReturnByGeneric<CountrySickDeathsAndGdpByGdp>(listGdp, NotFound, Ok);
+                case "Deaths":
+                    IEnumerable<CountrySickDeathsAndGdpByGdp> listDeaths = countrySickDeathsAndGdpByGdpManager.GetByDeaths(orderBy, date);
+                    return GlobalFunction.CheckResultAndReturnByGeneric<CountrySickDeathsAndGdpByGdp>(listDeaths, NotFound, Ok);
+                case "Sick":
+                    IEnumerable<CountrySickDeathsAndGdpByGdp> listSick = countrySickDeathsAndGdpByGdpManager.GetBySick(orderBy, date);
+                    return GlobalFunction.CheckResultAndReturnByGeneric<CountrySickDeathsAndGdpByGdp>(listSick, NotFound, Ok);
+                default:
+                    return BadRequest();
+            }
         }
     }
 }
