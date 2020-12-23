@@ -23,7 +23,7 @@ namespace Covid19.Models.Managers
                 "(select distinct Country, ( Cumulative_deaths*1000/ PopTotal) deathPerMillion, ( Cumulative_cases*1000 / PopTotal) sickPerMillion " +
                 "from (select distinct * from who_covid_19_global_data where Date_reported = '" + date + "') sick " +
                 "inner join (select distinct * from population_worldwide " +
-                "where time = 2020) density on sick.Country = density.Location order by sick.deathPerMillion " + orderBy + ") perMillion " +
+                "where time = 2020) density on sick.Country = density.Location) perMillion " +
                 "inner join gdp on gdp.Country = perMillion.Country order by perMillion.deathPerMillion " + orderBy);
             return GlobalFunction.ConvertListObjectByGeneric<CountryDeathsSickPerMillionWithGdp>(listOfAvg, ConvertObjectCountryDeathsSickPerMillionWithGdp);
         }
@@ -35,8 +35,8 @@ namespace Covid19.Models.Managers
                 "(select distinct Country, ( Cumulative_deaths*1000/ PopTotal) deathPerMillion, ( Cumulative_cases*1000 / PopTotal) sickPerMillion " +
                 "from (select distinct * from who_covid_19_global_data where Date_reported = '" + date + "') sick " +
                 "inner join (select distinct * from population_worldwide " +
-                "where time = 2020) density on sick.Country = density.Location order by sick.deathPerMillion " + orderBy + ") perMillion " +
-                "inner join gdp on gdp.Country = perMillion.Country order by perMillion.GDP " + orderBy);
+                "where time = 2020) density on sick.Country = density.Location) perMillion " +
+                "inner join gdp on gdp.Country = perMillion.Country order by GDP " + orderBy);
             return GlobalFunction.ConvertListObjectByGeneric<CountryDeathsSickPerMillionWithGdp>(listOfAvg, ConvertObjectCountryDeathsSickPerMillionWithGdp);
         }
 
@@ -47,7 +47,7 @@ namespace Covid19.Models.Managers
                 "(select distinct Country, ( Cumulative_deaths*1000/ PopTotal) deathPerMillion, ( Cumulative_cases*1000 / PopTotal) sickPerMillion " +
                 "from (select distinct * from who_covid_19_global_data where Date_reported = '" + date + "') sick " +
                 "inner join (select distinct * from population_worldwide " +
-                "where time = 2020) density on sick.Country = density.Location order by sick.deathPerMillion " + orderBy + ") perMillion " +
+                "where time = 2020) density on sick.Country = density.Location) perMillion " +
                 "inner join gdp on gdp.Country = perMillion.Country order by perMillion.sickPerMillion " + orderBy);
             return GlobalFunction.ConvertListObjectByGeneric<CountryDeathsSickPerMillionWithGdp>(listOfAvg, ConvertObjectCountryDeathsSickPerMillionWithGdp);
         }
@@ -61,7 +61,7 @@ namespace Covid19.Models.Managers
                     Country = infoFromDB[0].ToString(),
                     DeathPerMillion = Convert.ToDouble(infoFromDB[1].ToString()),
                     SickPerMillion = Convert.ToDouble(infoFromDB[2].ToString()),
-                    Gdp = Convert.ToDouble(infoFromDB[3].ToString())                    
+                    Gdp = Convert.ToDouble(infoFromDB[3].ToString())
                 };
             }
             catch (Exception)

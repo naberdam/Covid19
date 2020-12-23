@@ -38,7 +38,7 @@ namespace Covid19.Models.Managers
             List<object[]> listBySick = mySqlDB.GetSqlListWithoutParameters("select distinct Country, Cumulative_cases, Cumulative_deaths, PopTotal, PopDensity " +
                 "from (select distinct * from who_covid_19_global_data where Date_reported = '16/11/2020') sick " +
                 "inner join (select distinct * from population_worldwide where time = 2020) density on sick.Country = density.Location " +
-                "order by density.Cumulative_cases " + orderBy);
+                "order by Cumulative_cases " + orderBy);
             return GlobalFunction.ConvertListObjectByGeneric<CountriesDeathsVsDensity2020>(listBySick, ConvertObjectCountriesDeathsVsDensity2020);
         }
 
@@ -61,6 +61,6 @@ namespace Covid19.Models.Managers
             }
         }
 
-        
+
     }
 }
