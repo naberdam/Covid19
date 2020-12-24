@@ -49,7 +49,7 @@ namespace Covid19.Models.Managers
         {
             List<object[]> listSick = mySqlDB.GetSqlListWithoutParameters("select New_cases " +
                 "from who_covid_19_global_data " +
-                "where Date_reported = '" + dateReported + "' and Country = '" + country +"'");
+                "where Date_reported = '" + dateReported + "' and Country = '" + country + "'");
             return GlobalFunction.ConvertListObjectByGeneric<OneIntVariable>(listSick, ConvertObjectSumDeathsOrSick);
         }
 
