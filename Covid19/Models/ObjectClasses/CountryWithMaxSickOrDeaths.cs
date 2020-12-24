@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Covid19.Models.ObjectClasses
 {
-    public class CountryWithIntVariable
+    public class CountryWithMaxSickOrDeaths
     {
         [JsonProperty("country")]
         [JsonPropertyName("country")]

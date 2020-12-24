@@ -32,8 +32,8 @@ namespace Covid19
             services.Add(new ServiceDescriptor(typeof(MySqlDB), new MySqlDB(Configuration.GetConnectionString("DefaultConnection"))));
             services.AddSingleton<ICountriesDeathsVsDensity2020Manager, CountriesDeathsVsDensity2020Manager>();
             services.AddSingleton<ICountriesSickOrDeathsThisDayManager, CountriesSickOrDeathsThisDayManager>();
-            services.AddSingleton<ICountryWithIntVariableManager, CountryWithIntVariableManager>();
-            services.AddSingleton<ISumDeathsOrSickManager, SumDeathsOrSickManager>();
+            services.AddSingleton<ICountryWithMaxSickOrDeathsManager, CountryWithMaxSickOrDeathsManager>();
+            services.AddSingleton<IOneIntVariableManager, OneIntVariableManager>();
             services.AddSingleton<ISpecificCountryAndDateAvgSickManager, SpecificCountryAndDateAvgSickManager>();
             services.AddSingleton<ICountryDeathsSickPerMillionWithGdpManager, CountryDeathsSickPerMillionWithGdpManager>(); 
             services.AddSingleton<ICountrySickAndDeathsOrDensityManager, CountrySickAndDeathsOrDensityManager>(); 

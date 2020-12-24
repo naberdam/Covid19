@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Covid19.Models.ObjectClasses
 {
-    public class SumDeathsOrSick
+    public class OneIntVariable
     {
         [JsonProperty("sum")]
         [JsonPropertyName("sum")]
