@@ -5,6 +5,8 @@
     <title>Complex Queries</title>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="complexQueries.js"></script>
+    <script src="sorttable.js"></script>
+
     <link rel="stylesheet" href="complexQueries.css">
 
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
@@ -23,7 +25,7 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
-    </head>
+</head>
     <body> 
         <div class="grid-container">
             <div class="container-contact100">
@@ -38,8 +40,8 @@
                         <div class="count">
                             <select id="count" name="state">
                                 <option disabled selected value> -- select an option -- </option>
-                                <option value="perMillion">per million people</option>
-                                <option value="totalNumber">(total number)</option>
+                                <option value="PerMillion">per million people</option>
+                                <option value="TotalNumber">(total number)</option>
                             </select>
                         </div>
                         <label>from Corona in each country on date</label>
@@ -49,20 +51,31 @@
                                    value=today
                                    min="2019-12-01" max="2022-12-31">
                         </div>
+                        <label>with additional data of:</label><br>
+                        <input type="radio" id="Gdp" name="column" value="Gdp" onchange="checkColumn('Gdp')"> 
+                        <label for="Gdp">gdp</label><br>
+                        <input type="radio" id="Density" name="column" value="Density" onchange="checkColumn('Density')">
+                        <label for="Density">density in the country today</label><br>
+                        <input type="radio" id="PopulationGrowth" name="column" value="PopulationGrowth"  onchange="checkColumn('PopulationGrowth')">
+                        <label for="PopulationGrowth">population growth</label><br>
+
+
                         <label>order by</label>
                         <div class="orederBy">
-                            <select id="orderBy" name="orderBy" onchange="checkOrderBy(this.value)">
+                            <select id="orderBy" name="orderBy">
                                 <option disabled selected value> -- select an option -- </option>
-                                <option value="Gdp">gdp</option>
-                                <option value="Deaths">Dead</option>
-                                <option value="Sick">Sick</option>
-                                <option value="density"> density growt</option>
+                                <option value="DeathsOrder">Dead</option>
+                                <option value="SickOrder">Sick</option>
+                                <option id = "GdpOrder" value="GdpOrder" style="display:none">gdp</option>
+                                <option id ="PopulationGrowthOrder" value="PopulationGrowthOrder" style="display:none"> population growth</option>
+                                <option id ="DensityOrder" value="DensityOrder" style="display:none"> density today</option>
                             </select>
-                            <label id="labelForDensity" style="display:none"> choose number of years to calculate density growth</label>
-                            <input type="text" id="numberOfYears" name="numberOfYears" style="display:none" />
+                            <label id="labelForDensity" style="display:none"> choose number of years to calculate population growth</label>
+                            <input type="text" id="numberOfYears" name="numberOfYears" style="display:none" placeholder="type here the number of years" />
                         </div>
-                        <label>in</label>
+                        
                         <div class="descOrAsc">
+                            <label for="descOrAsc">in</label>
                             <select id="descOrAsc" name="descOrAsc">
                                 <option disabled selected value> -- select an option -- </option>
                                 <option value="desc">desc order</option>
@@ -102,12 +115,13 @@
                         <div class="container-table100">
                             <div class="wrap-table100">
                                 <div class="table100">
-                                    <table id="results"></table>
+                                    <table id="results" class="sortable"></table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
    

@@ -26,13 +26,13 @@ namespace Covid19.Controllers
             string orderBy = GlobalFunction.ConvertToOrderBy(desc);
             switch (gdpSickOrDeaths)
             {
-                case "Gdp":
+                case "GdpOrder":  //in use on onSubmitSpecificCountrySpecificDateDeathOrSick (complex window, gdp col, order gdp, total)
                     IEnumerable<CountrySickDeathsAndGdpByGdp> listGdp = countrySickDeathsAndGdpByGdpManager.GetByGdp(orderBy, date);
                     return GlobalFunction.CheckResultAndReturnByGeneric<CountrySickDeathsAndGdpByGdp>(listGdp, NotFound, Ok);
-                case "Deaths":
+                case "DeathsOrder": //in use on onSubmitSpecificCountrySpecificDateDeathOrSick (complex window, gdp col, order sick total)
                     IEnumerable<CountrySickDeathsAndGdpByGdp> listDeaths = countrySickDeathsAndGdpByGdpManager.GetByDeaths(orderBy, date);
                     return GlobalFunction.CheckResultAndReturnByGeneric<CountrySickDeathsAndGdpByGdp>(listDeaths, NotFound, Ok);
-                case "Sick":
+                case "SickOrder": //in use on onSubmitSpecificCountrySpecificDateDeathOrSick (complex window, gdp col, order sick total)
                     IEnumerable<CountrySickDeathsAndGdpByGdp> listSick = countrySickDeathsAndGdpByGdpManager.GetBySick(orderBy, date);
                     return GlobalFunction.CheckResultAndReturnByGeneric<CountrySickDeathsAndGdpByGdp>(listSick, NotFound, Ok);
                 default:

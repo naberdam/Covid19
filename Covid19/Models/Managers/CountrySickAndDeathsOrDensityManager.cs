@@ -17,8 +17,8 @@ namespace Covid19.Models.Managers
             mySqlDB = db;
         }
         public IEnumerable<CountrySickAndDeathsOrDensity> GetCountriesWithDensityWithSickAndDeathsPerMillion(string orderBy, string date)
-        {
-            List<object[]> list = mySqlDB.GetSqlListWithoutParameters("select distinct Country, PopDensity, Cumulative_cases, Cumulative_deaths,( Cumulative_deaths / PopTotal) deathPerMillion, ( Cumulative_cases / PopTotal) sickPerMillion, PopTotal " +
+        { // i changed it 24.12 yuval
+            List<object[]> list = mySqlDB.GetSqlListWithoutParameters("select distinct Country, PopDensity, Cumulative_cases, Cumulative_deaths,( Cumulative_deaths * 1000 / PopTotal) deathPerMillion, ( Cumulative_cases / PopTotal) sickPerMillion, PopTotal " +
                 "from (select distinct * " +
                 "from who_covid_19_global_data " +
                 "where Date_reported = '" + date + "') sick " +

@@ -18,8 +18,8 @@ namespace Covid19.Models.Managers
         }
 
         public IEnumerable<CountriesDeathsAndSickPreMillionBySick> GetBySick(string orderBy)
-        {
-            List<object[]> listOfAvg = mySqlDB.GetSqlListWithoutParameters("select distinct Country, ( Cumulative_deaths / PopTotal) deathPerMillion, ( Cumulative_cases / PopTotal) sickPerMillion " +
+        { // yuval changed on 24.12
+            List<object[]> listOfAvg = mySqlDB.GetSqlListWithoutParameters("select distinct Country, ( Cumulative_deaths *1000 / PopTotal) deathPerMillion, ( Cumulative_cases / PopTotal) sickPerMillion " +
                 "from " +
                 "(select distinct * " +
                 "from who_covid_19_global_data " +

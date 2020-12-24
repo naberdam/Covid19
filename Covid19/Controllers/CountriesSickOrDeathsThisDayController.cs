@@ -41,10 +41,10 @@ namespace Covid19.Controllers
             string convertDate = "" + dateReported[8] + dateReported[9] + "/" + dateReported[5] + dateReported[6] + "/" + dateReported[0] + dateReported[1] + dateReported[2]+ dateReported[3];
             switch (sickOrDeath)
             {
-                case "Deaths":
+                case "Deaths": //in use on onSubmitSpecificDate (main windows, up query max death on date)
                     IEnumerable<CountriesSickOrDeathsThisDay> listDeaths = countriesSickOrDeathsThisDay.GetCountriesMaxDeathsThisDay(convertDate);
                     return GlobalFunction.CheckResultAndReturnByGeneric<CountriesSickOrDeathsThisDay>(listDeaths, NotFound, Ok);
-                case "Sick":
+                case "Sick": //in use on onSubmitSpecificDate (main windows, up query max sick on date)
                     IEnumerable<CountriesSickOrDeathsThisDay> listSick = countriesSickOrDeathsThisDay.GetCountriesMaxSickThisDay(convertDate);
                     return GlobalFunction.CheckResultAndReturnByGeneric<CountriesSickOrDeathsThisDay>(listSick, NotFound, Ok);
                 default:

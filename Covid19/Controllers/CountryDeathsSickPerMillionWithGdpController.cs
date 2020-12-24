@@ -26,13 +26,13 @@ namespace Covid19.Controllers
             string orderBy = GlobalFunction.ConvertToOrderBy(desc);
             switch (deathsGdpSick)
             {
-                case "Sick":
+                case "SickOrder": //in use on onSubmitSpecificCountrySpecificDateDeathOrSick (complex window, gdp col, order sick, per million)
                     IEnumerable<CountryDeathsSickPerMillionWithGdp> listSick = countryDeathsSickPerMillionWithGdpManager.GetDataOrderBySick(orderBy, date);
                     return GlobalFunction.CheckResultAndReturnByGeneric<CountryDeathsSickPerMillionWithGdp>(listSick, NotFound, Ok);
-                case "Deaths":
+                case "DeathsOrder": //in use on onSubmitSpecificCountrySpecificDateDeathOrSick (complex window, gdp col, order death, per million)
                     IEnumerable<CountryDeathsSickPerMillionWithGdp> listDeaths = countryDeathsSickPerMillionWithGdpManager.GetDataOrderByDeaths(orderBy, date);
                     return GlobalFunction.CheckResultAndReturnByGeneric<CountryDeathsSickPerMillionWithGdp>(listDeaths, NotFound, Ok);
-                case "Gdp":
+                case "GdpOrder": //in use on onSubmitSpecificCountrySpecificDateDeathOrSick (complex window, gdp col, order sick, per million) --- there is a problem in the order!!
                     IEnumerable<CountryDeathsSickPerMillionWithGdp> listGdp = countryDeathsSickPerMillionWithGdpManager.GetDataOrderByGdp(orderBy, date);
                     return GlobalFunction.CheckResultAndReturnByGeneric<CountryDeathsSickPerMillionWithGdp>(listGdp, NotFound, Ok);
                 default:

@@ -1,7 +1,7 @@
 ﻿let marker;
 let map;
 
-// Initialize and add the map
+//// Initialize and add the map
 function initMap() {
     // The location of Uluru
     const uluru = { lat: -25.344, lng: 131.036 };
@@ -28,8 +28,14 @@ function onSubmitNevigate(event) {
 function addMarker(MyLatLong, country, number, state, date) {
     //let contentString;
     let infoWindow = new google.maps.InfoWindow();
+    let contentString;
     //pop up window marker
-    const contentString = "<b>" + country + "</b>" +"</br>Number of " + state + " on " + date + " is <b>" + number + "</b>";
+    if (typeof(date) != "undefined") {
+        contentString = "<b>" + country + "</b>" + "</br>Number of " + state + " on " + date + " is <b>" + number + "</b>";
+    } else {
+        contentString = "<b>" + country + "</b>" + "</br>Number of " + state + " until today is <b>" + number + "</b>";
+    }
+   
     //if (markersColor.includes(country)) {
     //    marker = new google.maps.Marker({
     //        map: map,
@@ -100,28 +106,30 @@ function addMarker(MyLatLong, country, number, state, date) {
     })(marker, country);
 }
 
-function onSubmitLeastOrMostSpecificDate(event) {
+function onSubmitSpecificDate(event) {
     event.preventDefault();
-    date = event.target.elements.date.value;
-    let convertedDate = "" + date[8] + date[9] + "/" + date[5] + date[6] + "/" + date[0] + date[1] + date[2] + date[3];
-    const url = "/api/CountriesSickOrDeathsThisDay/?sickOrDeath=" + event.target.elements.state.value + "&dateReported=" + event.target.elements.date.value;
+    date = event.target.elements.dateUpQuery.value;
+    const url = "/api/CountriesSickOrDeathsThisDay?sickOrDeath=" + event.target.elements.state.value + "&dateReported=" + date;
     $.ajax({
         url: url,
         type: "GET",
         success: function (data) {
-            const country = data[0].country;
-            const number = data[0].newCases;
+            let number = data[0].newCases;
+            let country = data[0].country
             var latLong = getLatLong(country);
-            addMarker(latLong, country, number, event.target.elements.state.value, event.target.elements.date.value);
+            addMarker(latLong, country, number, event.target.elements.state.value,date);
 
         },
         error: function (request) {
             alert("error");
         }
     });
-};
+}
 
 function getLatLong(country) {
+    if (country == "all over the world") {
+        country = "Israel";
+    }
     const url = "/api/LngLtdOfCountry?country=" + country;
     var request = new XMLHttpRequest();
     request.open('GET', url, false);  // `false` makes the request synchronous
@@ -129,75 +137,47 @@ function getLatLong(country) {
     let lat = request.responseText.split('latitude":')[1].split(",")[0];
     let long = request.responseText.split('longitude":')[1].split(",")[0].split("}")[0];
     return new google.maps.LatLng(parseFloat(lat), parseFloat(long));
-    //return MyLatLong;
-    //alert(request.responseText);
-    //$.ajax({
-    //    url: url,
-    //    type: "GET",
-    //    success: function (data) {
-    //        const myLatLng = new google.maps.LatLng(data[0].latitude, data[0].longitude);
-    //        return myLatLong;
-    //    },
-    //    error: function (request) {
-    //        alert("error");
-    //    }
-    //});
+}
+
+function onChangeCountry(event) {
+    if (event.target.value == 'allOver') {
+        document.getElementById('untilOrThisDate').style.display = 'none';
+        document.getElementById('untilTodayLabel').style.display = 'block';
+        document.getElementById('dateDownQuery').style.display = 'none';
+    } else {
+        document.getElementById('dateDownQuery').style.display = 'block';
+        document.getElementById('untilOrThisDate').style.display = 'block';
+        document.getElementById('untilTodayLabel').style.display = 'none';
+    }
 }
 
 function onSubmitSpecificCountrySpecificDateDeathOrSick(event) {
-    alert("sending query");
-    const url = "/api/CountryDatas?country=" + event.target.elements.country.value + "?fromDate" + event.target.elements.date.value +
-        "?toDate" + event.target.elements.date.value + "?state" + event.target.elements.state.value;
-    alert(url);
-
+    event.preventDefault();
+    untilOrThisDate = event.target.elements.untilOrThisDate.value;
+    let date;
+    let url;
+    let country = event.target.elements.country.value;
+    if (country == "allOver") {
+        url = "/api/OneIntVariable/?deathsOrSick=" + event.target.elements.state.value;
+        country = 'all over the world';
+       
+    } else {
+        date = event.target.elements.dateDownQuery.value;
+        let convertedDate = "" + date[8] + date[9] + "/" + date[5] + date[6] + "/" + date[0] + date[1] + date[2] + date[3];
+        url = "/api/OneIntVariable/?deathsOrSick=" + event.target.elements.untilOrThisDate.value + event.target.elements.state.value + "&date=" + convertedDate + "&country=" + country;
+    }
+    
     $.ajax({
         url: url,
-        success:
-            alert("success"),
-        function(countriesData) {
-            alert("success");
-            alert(countriesData);
-            //delete all markers in the map
-            for (i = 0; i < allMarker.length; i++) {
-                allMarker[i].setMap(null);
-            }
-            allMarker = [];
-
-            let newCountriesNames = [];
-
-            // insert new country to tables
-            for (const countryData of countriesData) {
-                if (countryData === null) {
-                    continue;
-                }
-
-                newCountries.push(countryData.name);
-                // draw route
-                const myLatLng = new google.maps.LatLng(countryData.latitude, countryData.longitude);
-                addMarker(myLatLng, countryData);
-            }
-
-            // remove deleted country from tables
-            for (const countryName of countryName) {
-                if (!newCountriesNames.includes(countryName)) {
-                    //remove marker on the map
-                    for (let i = 0; i < allMarker.length; i++) {
-                        if (allMarker[i].get('store_id') === countryName) {
-                            allMarker[i].setMap(null);
-                            //remove from array
-                            allMarker.splice(i, 1);
-                            //remove from array color
-                            const index = array.indexOf(countryName);
-                            markersColor.splice(index, 1);
-                        }
-                    }
-                }
-            }
-
-            countryName = newCountriesNames;
+        type: "GET",
+        success: function (data) {
+            let number = data[0].sum;
+            var latLong = getLatLong(country);
+            addMarker(latLong, country, number, event.target.elements.state.value, date);
+            $("#contact100-form validate-form")[0].reset();
         },
         error: function (request) {
-            alert("error");
+            alert("Sorry, we don't have this data");
         }
     });
 }

@@ -27,10 +27,10 @@ namespace Covid19.Controllers
             {
                 switch (deathsOrSick)
                 {
-                    case "Sick":
-                        IEnumerable<OneIntVariable> listSick = sumDeathsOrSickManager.GetSumSick();
+                    case "Sick":  //in use on onSubmitSpecificCountrySpecificDateDeathOrSick (main windows, down query allOver)
+                        IEnumerable<OneIntVariable> listSick = sumDeathsOrSickManager.GetSumSick(); 
                         return GlobalFunction.CheckResultAndReturnByGeneric<OneIntVariable>(listSick, NotFound, Ok);
-                    case "Deaths":
+                    case "Deaths": //in use on onSubmitSpecificCountrySpecificDateDeathOrSick (main windows, down query allOver)
                         IEnumerable<OneIntVariable> listDeaths = sumDeathsOrSickManager.GetSumDeaths();
                         return GlobalFunction.CheckResultAndReturnByGeneric<OneIntVariable>(listDeaths, NotFound, Ok);
                     default:
@@ -41,16 +41,16 @@ namespace Covid19.Controllers
             {
                 switch (deathsOrSick)
                 {
-                    case "Sick":
+                    case "ThisDaySick": //in use on onSubmitSpecificCountrySpecificDateDeathOrSick (main windows, down query on)
                         IEnumerable<OneIntVariable> listSick = sumDeathsOrSickManager.GetSickToday(date, country);
                         return GlobalFunction.CheckResultAndReturnByGeneric<OneIntVariable>(listSick, NotFound, Ok);
-                    case "Deaths":
+                    case "ThisDayDeaths": //in use on onSubmitSpecificCountrySpecificDateDeathOrSick (main windows, down query on)
                         IEnumerable<OneIntVariable> listDeaths = sumDeathsOrSickManager.GetDeathsToday(date, country);
                         return GlobalFunction.CheckResultAndReturnByGeneric<OneIntVariable>(listDeaths, NotFound, Ok);
-                    case "CumulativeDeaths":
+                    case "CumulativeDeaths": //in use on onSubmitSpecificCountrySpecificDateDeathOrSick (main windows, down query until)
                         IEnumerable<OneIntVariable> listCumulativeDeaths = sumDeathsOrSickManager.GetDeathsCumulative(date, country);
                         return GlobalFunction.CheckResultAndReturnByGeneric<OneIntVariable>(listCumulativeDeaths, NotFound, Ok);
-                    case "CumulativeSick":
+                    case "CumulativeSick": //in use on onSubmitSpecificCountrySpecificDateDeathOrSick (main windows, down query until)
                         IEnumerable<OneIntVariable> listCumulativeSick = sumDeathsOrSickManager.GetSickCumulative(date, country);
                         return GlobalFunction.CheckResultAndReturnByGeneric<OneIntVariable>(listCumulativeSick, NotFound, Ok);
                     default:

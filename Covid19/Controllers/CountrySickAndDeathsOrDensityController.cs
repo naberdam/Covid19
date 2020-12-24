@@ -26,19 +26,20 @@ namespace Covid19.Controllers
             string orderBy = GlobalFunction.ConvertToOrderBy(desc);
             switch (orderBySickDeathGrowth)
             {
-                case "Sick":
+                // those cases are for population growth per million
+                case "SickOrder":
                     IEnumerable<CountrySickAndDeathsOrDensity> listSick = 
                         countrySickAndDeathsOrDensityManager.GetCountryDeathsAndSickPerMillionAndDensityOrderBySick(orderBy, date, numYears);
                     return GlobalFunction.CheckResultAndReturnByGeneric<CountrySickAndDeathsOrDensity>(listSick, NotFound, Ok);
-                case "Deaths":
+                case "DeathsOrder":
                     IEnumerable<CountrySickAndDeathsOrDensity> listDeaths = 
                         countrySickAndDeathsOrDensityManager.GetCountryDeathsAndSickPerMillionAndDensityOrderByDeaths(orderBy, date, numYears);
                     return GlobalFunction.CheckResultAndReturnByGeneric<CountrySickAndDeathsOrDensity>(listDeaths, NotFound, Ok);
-                case "Growth":
+                case "PopulationGrowthOrder":
                     IEnumerable<CountrySickAndDeathsOrDensity> listGdp = 
                         countrySickAndDeathsOrDensityManager.GetCountryDeathsAndSickPerMillionAndDensityOrderByGrowth(orderBy, date, numYears);
                     return GlobalFunction.CheckResultAndReturnByGeneric<CountrySickAndDeathsOrDensity>(listGdp, NotFound, Ok);
-                case "":
+                case "": // this case is for density (people vs space) per million
                     IEnumerable<CountrySickAndDeathsOrDensity> list = 
                         countrySickAndDeathsOrDensityManager.GetCountriesWithDensityWithSickAndDeathsPerMillion(orderBy, date);
                     return GlobalFunction.CheckResultAndReturnByGeneric<CountrySickAndDeathsOrDensity>(list, NotFound, Ok);
