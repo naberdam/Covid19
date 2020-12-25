@@ -19,7 +19,7 @@ namespace Covid19.Models.Managers
 
         public IEnumerable<LngLtdOfCountry> GetLngAndLtd(string country)
         {
-            List<object[]> listOfAvg = mySqlDB.GetSqlListWithoutParameters("select * from countries_coordinates where Country = '" + country + "'");
+            List<object[]> listOfAvg = mySqlDB.GetSqlListWithoutParameters("select Latitude, Longitude from countries_coordinates where Country = '" + country + "'");
             return GlobalFunction.ConvertListObjectByGeneric<LngLtdOfCountry>(listOfAvg, ConvertObjectLngLtdOfCountry);
         }
 
