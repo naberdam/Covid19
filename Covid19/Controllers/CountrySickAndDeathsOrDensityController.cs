@@ -21,7 +21,8 @@ namespace Covid19.Controllers
         }
         // GET: api/CountrySickAndDeathsOrDensity
         [HttpGet]
-        public ActionResult<IEnumerable<CountrySickAndDeathsOrDensity>> GetCountrySickAndDeathsOrDensity([FromQuery] string date, [FromQuery] bool withGrowth=false, [FromQuery] string orderBySickDeathGrowth="", [FromQuery] int numYears=-1, [FromQuery] bool desc = false)
+        public ActionResult<IEnumerable<CountrySickAndDeathsOrDensity>> GetCountrySickAndDeathsOrDensity([FromQuery] string date, [FromQuery] bool withGrowth=false, 
+            [FromQuery] string orderBySickDeathGrowth="", [FromQuery] int numYears=-1, [FromQuery] bool desc = false)
         {
             string orderBy = GlobalFunction.ConvertToOrderBy(desc);
             switch (orderBySickDeathGrowth)
