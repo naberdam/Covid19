@@ -19,7 +19,7 @@ namespace Covid19.Controllers
         {
             countrySickDeathsAndGdpByGdpManager = iCountrySickDeathsAndGdpByGdpManager;
         }
-        // GET: api/CountrySickDeathsAndGdpByGdp
+        // GET: api/CountrySickDeathsAndGdpByGdp?date=10/10/2020&gdpSickOrDeaths=GdpOrder
         [HttpGet]
         public ActionResult<IEnumerable<CountrySickDeathsAndGdpByGdp>> GetCountrySickDeathsAndGdpByGdp([FromQuery] string date, [FromQuery] string gdpSickOrDeaths, [FromQuery] bool desc = false)
         {

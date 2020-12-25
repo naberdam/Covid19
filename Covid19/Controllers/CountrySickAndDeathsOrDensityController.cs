@@ -19,7 +19,8 @@ namespace Covid19.Controllers
         {
             countrySickAndDeathsOrDensityManager = iCountrySickAndDeathsOrDensityManager;
         }
-        // GET: api/CountrySickAndDeathsOrDensity
+        // GET: api/CountrySickAndDeathsOrDensity?date=10/10/2020
+        // api/CountrySickAndDeathsOrDensity?date=10/10/2020&orderBySickDeathGrowth=DeathsOrder&numYears=20
         [HttpGet]
         public ActionResult<IEnumerable<CountrySickAndDeathsOrDensity>> GetCountrySickAndDeathsOrDensity([FromQuery] string date, [FromQuery] bool withGrowth=false, 
             [FromQuery] string orderBySickDeathGrowth="", [FromQuery] int numYears=-1, [FromQuery] bool desc = false)

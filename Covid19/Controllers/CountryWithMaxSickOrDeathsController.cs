@@ -20,7 +20,7 @@ namespace Covid19.Controllers
             countriesWithIntVariable = iCountriesWithIntVariable;
         }
 
-        // GET: api/CountryWithIntVariable/5
+        // GET: api/CountryWithMaxSickOrDeaths?nameOfQuery=CountriesMaxSick
         [HttpGet]
         public ActionResult<IEnumerable<CountryWithMaxSickOrDeaths>> GetCountryWithIntVariable([FromQuery] string nameOfQuery, [FromQuery] bool desc = false)
         {

@@ -20,6 +20,7 @@ namespace Covid19.Controllers
             sumDeathsOrSickManager = iSumDeathsOrSickManager;
         }
         // GET: api/OneIntVariable?deathsOrSick=Deaths&date=10/10/2020&country=India
+        // api/OneIntVariable?deathsOrSick=Deaths
         [HttpGet]
         public ActionResult<IEnumerable<OneIntVariable>> GetSumDeathsOrSick([FromQuery] string deathsOrSick, [FromQuery] string date = "", [FromQuery] string country = "")
         {

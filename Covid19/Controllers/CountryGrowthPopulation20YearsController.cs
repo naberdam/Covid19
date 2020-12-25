@@ -19,7 +19,7 @@ namespace Covid19.Controllers
         {
             countryGrowthPopulation20YearskManager = iCountryGrowthPopulation20YearskManager;
         }
-        // GET: api/CountryGrowthPopulation20Years
+        // GET: api/CountryGrowthPopulation20Years?numYears=20
         [HttpGet]
         public ActionResult<IEnumerable<CountryGrowthPopulation20Years>> GetCountryGrowthPopulation20Years([FromQuery] int numYears, [FromQuery] bool desc=false)
         {

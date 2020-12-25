@@ -18,8 +18,8 @@ namespace Covid19.Models.Managers
         }
         public IEnumerable<CountrySickDeathsAndGdpByGdp> GetByGdp(string orderBy, string date)
         {
-            List<object[]> listOfGrowth = mySqlDB.GetSqlListWithoutParameters("select distinct sick.Country, Cumulative_cases, Cumulative_deaths, gdp.2020 as GDP " +
-                "from (select Country, gdp.2020 from gdp) gdp " +
+            List<object[]> listOfGrowth = mySqlDB.GetSqlListWithoutParameters("select distinct sick.Country, Cumulative_cases, Cumulative_deaths, gdp.year2020 as GDP " +
+                "from (select Country, gdp.year2020 from gdp) gdp " +
                 "inner join " +
                 "(select * " +
                 "from who_covid_19_global_data where Date_reported = '" + date + "') as sick on sick.Country = gdp.Country " +
@@ -46,8 +46,8 @@ namespace Covid19.Models.Managers
 
         public IEnumerable<CountrySickDeathsAndGdpByGdp> GetByDeaths(string orderBy, string date)
         {
-            List<object[]> listOfDeaths = mySqlDB.GetSqlListWithoutParameters("select distinct sick.Country, Cumulative_cases, Cumulative_deaths, gdp.2020 as GDP " +
-                "from (select Country, gdp.2020 from gdp) gdp " +
+            List<object[]> listOfDeaths = mySqlDB.GetSqlListWithoutParameters("select distinct sick.Country, Cumulative_cases, Cumulative_deaths, gdp.year2020 as GDP " +
+                "from (select Country, gdp.year2020 from gdp) gdp " +
                 "inner join " +
                 "(select * " +
                 "from who_covid_19_global_data where Date_reported = '" + date + "') as sick on sick.Country = gdp.Country " +
@@ -57,8 +57,8 @@ namespace Covid19.Models.Managers
 
         public IEnumerable<CountrySickDeathsAndGdpByGdp> GetBySick(string orderBy, string date)
         {
-            List<object[]> listOfSick = mySqlDB.GetSqlListWithoutParameters("select distinct sick.Country, Cumulative_cases, Cumulative_deaths, gdp.2020 as GDP " +
-                "from (select Country, gdp.2020 from gdp) gdp " +
+            List<object[]> listOfSick = mySqlDB.GetSqlListWithoutParameters("select distinct sick.Country, Cumulative_cases, Cumulative_deaths, gdp.year2020 as GDP " +
+                "from (select Country, gdp.year2020 from gdp) gdp " +
                 "inner join " +
                 "(select * " +
                 "from who_covid_19_global_data where Date_reported = '" + date + "') as sick on sick.Country = gdp.Country " +

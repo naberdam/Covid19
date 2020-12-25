@@ -19,7 +19,7 @@ namespace Covid19.Controllers
         {
             lngLtdOfCountryManager = iLngLtdOfCountryManager;
         }
-        // GET: api/LngLtdOfCountry
+        // GET: api/LngLtdOfCountry?country=India
         [HttpGet]
         public ActionResult<IEnumerable<LngLtdOfCountry>> GetLngLtdOfCountry([FromQuery] string country)
         {

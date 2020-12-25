@@ -18,7 +18,7 @@ namespace Covid19.Models.Managers
         }
         public IEnumerable<CountryDeathsSickPerMillionWithGdp> GetDataOrderByDeaths(string orderBy, string date)
         {
-            List<object[]> listOfAvg = mySqlDB.GetSqlListWithoutParameters("select perMillion.Country, perMillion.deathPerMillion, perMillion.sickPerMillion, gdp.2020 as GDP " +
+            List<object[]> listOfAvg = mySqlDB.GetSqlListWithoutParameters("select perMillion.Country, perMillion.deathPerMillion, perMillion.sickPerMillion, gdp.year2020 as GDP " +
                 "from " +
                 "(select distinct Country, ( Cumulative_deaths*1000/ PopTotal) deathPerMillion, ( Cumulative_cases*1000 / PopTotal) sickPerMillion " +
                 "from (select distinct * from who_covid_19_global_data where Date_reported = '" + date + "') sick " +
@@ -30,7 +30,7 @@ namespace Covid19.Models.Managers
 
         public IEnumerable<CountryDeathsSickPerMillionWithGdp> GetDataOrderByGdp(string orderBy, string date)
         {
-            List<object[]> listOfAvg = mySqlDB.GetSqlListWithoutParameters("select perMillion.Country, perMillion.deathPerMillion, perMillion.sickPerMillion, gdp.2020 as GDP " +
+            List<object[]> listOfAvg = mySqlDB.GetSqlListWithoutParameters("select perMillion.Country, perMillion.deathPerMillion, perMillion.sickPerMillion, gdp.year2020 as GDP " +
                 "from " +
                 "(select distinct Country, ( Cumulative_deaths*1000/ PopTotal) deathPerMillion, ( Cumulative_cases*1000 / PopTotal) sickPerMillion " +
                 "from (select distinct * from who_covid_19_global_data where Date_reported = '" + date + "') sick " +
@@ -42,7 +42,7 @@ namespace Covid19.Models.Managers
 
         public IEnumerable<CountryDeathsSickPerMillionWithGdp> GetDataOrderBySick(string orderBy, string date)
         {
-            List<object[]> listOfAvg = mySqlDB.GetSqlListWithoutParameters("select perMillion.Country, perMillion.deathPerMillion, perMillion.sickPerMillion, gdp.2020 as GDP " +
+            List<object[]> listOfAvg = mySqlDB.GetSqlListWithoutParameters("select perMillion.Country, perMillion.deathPerMillion, perMillion.sickPerMillion, gdp.year2020 as GDP " +
                 "from " +
                 "(select distinct Country, ( Cumulative_deaths*1000/ PopTotal) deathPerMillion, ( Cumulative_cases*1000 / PopTotal) sickPerMillion " +
                 "from (select distinct * from who_covid_19_global_data where Date_reported = '" + date + "') sick " +

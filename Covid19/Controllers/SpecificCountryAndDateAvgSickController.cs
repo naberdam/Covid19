@@ -19,7 +19,8 @@ namespace Covid19.Controllers
         {
             avgSickWeekOfCountryByDateManager = iAvgSickWeekOfCountryByDateManager;
         }
-        // GET: api/SpecificCountryAndDateAvgSick?divOrAvg=Avg&country=Afghanistan&date=30/04/2020
+        // GET: api/SpecificCountryAndDateAvgSick?divOrAvg=Avg&country=India&date=30/04/2020
+        // api/SpecificCountryAndDateAvgSick?divOrAvg=Avg&date=30/04/2020
         [HttpGet]
         public ActionResult<IEnumerable<SpecificCountryAndDateAvgSick>> GetAvgSickWeekOfCountryByDate([FromQuery] string divOrAvg, [FromQuery] string date,
             [FromQuery] string country="", [FromQuery] bool desc =false)
@@ -41,17 +42,21 @@ namespace Covid19.Controllers
                 }
             }
             // not specific country
-            switch (divOrAvg)
+            if (date != null)
             {
-                case "Avg":
-                    IEnumerable<SpecificCountryAndDateAvgSick> listAvg = avgSickWeekOfCountryByDateManager.GetOnlyAvg(orderBy, date);
-                    return GlobalFunction.CheckResultAndReturnByGeneric<SpecificCountryAndDateAvgSick>(listAvg, NotFound, Ok);
-                case "Div":
-                    IEnumerable<SpecificCountryAndDateAvgSick> listDiv = avgSickWeekOfCountryByDateManager.GetDivOfAvg(orderBy, date);
-                    return GlobalFunction.CheckResultAndReturnByGeneric<SpecificCountryAndDateAvgSick>(listDiv, NotFound, Ok);
-                default:
-                    return BadRequest();
+                switch (divOrAvg)
+                {
+                    case "Avg":
+                        IEnumerable<SpecificCountryAndDateAvgSick> listAvg = avgSickWeekOfCountryByDateManager.GetOnlyAvg(orderBy, date);
+                        return GlobalFunction.CheckResultAndReturnByGeneric<SpecificCountryAndDateAvgSick>(listAvg, NotFound, Ok);
+                    case "Div":
+                        IEnumerable<SpecificCountryAndDateAvgSick> listDiv = avgSickWeekOfCountryByDateManager.GetDivOfAvg(orderBy, date);
+                        return GlobalFunction.CheckResultAndReturnByGeneric<SpecificCountryAndDateAvgSick>(listDiv, NotFound, Ok);
+                    default:
+                        return BadRequest();
+                }
             }
+            return BadRequest();
         }
     }
 }

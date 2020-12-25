@@ -19,7 +19,7 @@ namespace Covid19.Models.Managers
         public IEnumerable<CountryWithMaxSickOrDeaths> GetCountriesMaxDeaths(string orderBy)
         {
             List<object[]> listCountriesMaxDeaths = mySqlDB.GetSqlListWithoutParameters("select distinct Country,  MAX(Cumulative_deaths) as deaths " +
-                "from who_sick.who_sick group by (Country) " +
+                "from who_covid_19_global_data group by (Country) " +
                 "order by deaths " + orderBy);
             return GlobalFunction.ConvertListObjectByGeneric<CountryWithMaxSickOrDeaths>(listCountriesMaxDeaths, ConvertObjectCountryWithIntVariable);
 
@@ -27,9 +27,9 @@ namespace Covid19.Models.Managers
 
         public IEnumerable<CountryWithMaxSickOrDeaths> GetCountriesMaxSick(string orderBy)
         {
-            List<object[]> listCountriesMaxSick = mySqlDB.GetSqlListWithoutParameters("select distinct Country,  MAX(Cumulative_cases) as deaths " +
-                "from who_sick.who_sick group by (Country) " +
-                "order by deaths " + orderBy);
+            List<object[]> listCountriesMaxSick = mySqlDB.GetSqlListWithoutParameters("select distinct Country,  MAX(Cumulative_cases) as sick " +
+                "from who_covid_19_global_data group by (Country) " +
+                "order by sick " + orderBy);
             return GlobalFunction.ConvertListObjectByGeneric<CountryWithMaxSickOrDeaths>(listCountriesMaxSick, ConvertObjectCountryWithIntVariable);
         }
 
