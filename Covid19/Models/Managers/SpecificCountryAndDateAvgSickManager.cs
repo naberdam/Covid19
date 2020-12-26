@@ -60,7 +60,6 @@ namespace Covid19.Models.Managers
                 "inner join (select Country,  AVG(New_cases) avg_sick_last_week from who_covid_19_global_data " +
                 "where str_to_date(who_covid_19_global_data.Date_reported, '%d/%m/%Y') between str_to_date('" + date + "', '%d/%m/%Y')-13 and str_to_date('" + date + "', '%d/%m/%Y')-7 group by(Country) " +
                 "order by(avg_sick_last_week) " + orderBy + ") last_week on(this_week.Country = last_week.Country) " +
-                "order by(avg_sick_last_week) " + orderBy + ") last_week on(this_week.Country = last_week.Country) " +
                 "order by(div_sick_weeks) " + orderBy + "");
             return GlobalFunction.ConvertListObjectByGeneric<SpecificCountryAndDateAvgSick>(listDivOfAvg, ConvertObjectAvgSickWeekOfCountryByDate);
         }
