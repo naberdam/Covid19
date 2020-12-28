@@ -26,60 +26,7 @@ function onsubmitComplex(event) {
     }  
 }
 
-
-function popGrowthPerMillion(date, descOrAsc, numYears, orderBy) {
-    // from CountrySickAndDeathsOrDensityController
-
-    if (descOrAsc == 'desc') {
-        url = "/api/CountrySickAndDeathsOrDensity?date=" + date + "&orderBySickDeathGrowth=" + orderBy + "&numYears=" + numYears+ "&desc=true";
-    } else {
-        url = "/api/CountrySickAndDeathsOrDensity?date=" + date + "&orderBySickDeathGrowth=" + orderBy + "&numYears=" + numYears + "&desc=false";
-    }
-    $.ajax({
-        url: url,
-        type: "GET",
-        success: function (data) {
-            deleteTable();
-            let table = document.querySelector("table");
-            //sorttable.makeSortable(table)
-            generateTableHead(table, Object.keys(data[0]));
-            generateTable(table, data);
-        },
-        error: function () {
-            alert("error");
-        }
-    });
-}
-
-
-
-
-
-function populationTotal(date, descOrAsc, numberOfYears) {
-    // from CountriesDeathsVsDensity2020Controller
-
-    if (descOrAsc == 'desc') {
-        url = "/api/CountriesDeathsVsDensity2020?densityOrDeath=" + orderBy + "&date=" + date + "&desc=true";
-    } else {
-        url = "/api/CountriesDeathsVsDensity2020?densityOrDeath=" + orderBy + "&date=" + date + "&desc=false";
-    }
-    $.ajax({
-        url: url,
-        type: "GET",
-        success: function (data) {
-            deleteTable();
-            let table = document.querySelector("table");
-            generateTableHead(table, Object.keys(data[0]));
-            generateTable(table, data);
-        },
-        error: function () {
-            alert("error");
-        }
-    });
-}
-
-
-function gdpTotal(date, descOrAsc, orderBy) {
+function gdpTotal(date, descOrAsc, orderBy) { //working
     // from CountrySickDeathsAndGdpByGdpController
 
     if (descOrAsc == 'desc') {
@@ -103,7 +50,7 @@ function gdpTotal(date, descOrAsc, orderBy) {
 }
 
 
-function gdpPerMillion(date, descOrAsc, orderBy) {
+function gdpPerMillion(date, descOrAsc, orderBy) { // working
     // from CountryDeathsSickPerMillionWithGdpController
 
     if (descOrAsc == 'desc') {
@@ -127,7 +74,75 @@ function gdpPerMillion(date, descOrAsc, orderBy) {
     });
 }
 
+function popGrowthPerMillion(date, descOrAsc, numYears, orderBy) { // working
+    // from CountrySickAndDeathsOrDensityController
 
+    if (descOrAsc == 'desc') {
+        url = "/api/CountrySickAndDeathsOrDensity?date=" + date + "&orderBySickDeathGrowth=" + orderBy + "&numYears=" + numYears+ "&desc=true";
+    } else {
+        url = "/api/CountrySickAndDeathsOrDensity?date=" + date + "&orderBySickDeathGrowth=" + orderBy + "&numYears=" + numYears + "&desc=false";
+    }
+    $.ajax({
+        url: url,
+        type: "GET",
+        success: function (data) {
+            deleteTable();
+            let table = document.querySelector("table");
+            //sorttable.makeSortable(table)
+            generateTableHead(table, Object.keys(data[0]));
+            generateTable(table, data);
+        },
+        error: function () {
+            alert("error");
+        }
+    });
+}
+
+function popGrowthTotal(date, descOrAsc, numberOfYears) {
+    // from CountriesDeathsVsDensity2020Controller
+
+    if (descOrAsc == 'desc') {
+        url = "/api/CountriesDeathsVsDensity2020?densityOrDeath=" + orderBy + "&date=" + date + "&desc=true";
+    } else {
+        url = "/api/CountriesDeathsVsDensity2020?densityOrDeath=" + orderBy + "&date=" + date + "&desc=false";
+    }
+    $.ajax({
+        url: url,
+        type: "GET",
+        success: function (data) {
+            deleteTable();
+            let table = document.querySelector("table");
+            generateTableHead(table, Object.keys(data[0]));
+            generateTable(table, data);
+        },
+        error: function () {
+            alert("error");
+        }
+    });
+}
+
+function densityTotal(date, descOrAsc, orderBy) {
+    // from CountriesDeathsVsDensity2020Controller
+
+    if (descOrAsc == 'desc') {
+        url = "/api/CountrySickDeathsAndGdpByGdp?gdpSickOrDeaths=" + orderBy + "&date=" + date + "&desc=true";
+    } else {
+        url = "/api/CountrySickDeathsAndGdpByGdp?gdpSickOrDeaths=" + orderBy + "&date=" + date + "&desc=false";
+    }
+    $.ajax({
+        url: url,
+        type: "GET",
+        success: function (data) {
+            deleteTable();
+            let table = document.querySelector("table");
+            generateTableHead(table, Object.keys(data[0]));
+            generateTable(table, data);
+        },
+        error: function () {
+            alert("error");
+        }
+    });
+}
 
 function densityPerMillion(date, descOrAsc, orderBy) {
     // from CountrySickAndDeathsOrDensityController
