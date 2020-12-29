@@ -7,31 +7,16 @@ using System.Threading.Tasks;
 
 namespace Covid19.Models.ObjectClasses
 {
-    public class CountrySickAndDeathsOrDensity
+    public class CountrySickAndDeathsPerMillionAndGrowth
     {
         [JsonProperty("country")]
         [JsonPropertyName("country")]
         public string Country { get; set; }
 
 
-        [JsonProperty("popTotal")]
-        [JsonPropertyName("popTotal")]
-        public double PopTotal { get; set; }
-
-
-        [JsonProperty("cumulativeDeaths")]
-        [JsonPropertyName("cumulativeDeaths")]
-        public int CumulativeDeaths { get; set; }
-
-
-        [JsonProperty("popDensity")]
-        [JsonPropertyName("popDensity")]
-        public double PopDensity { get; set; }
-
-
-        [JsonProperty("cumulativeCases")]
-        [JsonPropertyName("cumulativeCases")]
-        public int CumulativeCases { get; set; }
+        [JsonProperty("growth")]
+        [JsonPropertyName("growth")]
+        public double Growth { get; set; }        
 
         [JsonProperty("deathPerMillion")]
         [JsonPropertyName("deathPerMillion")]

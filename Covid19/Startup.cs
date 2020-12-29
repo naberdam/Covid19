@@ -36,7 +36,7 @@ namespace Covid19
             services.AddSingleton<IOneIntVariableManager, OneIntVariableManager>();
             services.AddSingleton<ISpecificCountryAndDateAvgSickManager, SpecificCountryAndDateAvgSickManager>();
             services.AddSingleton<ICountryDeathsSickPerMillionWithGdpManager, CountryDeathsSickPerMillionWithGdpManager>(); 
-            services.AddSingleton<ICountrySickAndDeathsOrDensityManager, CountrySickAndDeathsOrDensityManager>(); 
+            services.AddSingleton<ICountrySickAndDeathsPerMillionAndGrowthManager, CountrySickAndDeathsOrDensityManager>(); 
             services.AddSingleton<ICountrySickDeathsAndGdpByGdpManager, CountrySickDeathsAndGdpByGdpManager>(); 
             services.AddSingleton<ICountryGrowthPopulation20YearsManager, CountryGrowthPopulation20YearsManager>(); 
             services.AddSingleton<ILngLtdOfCountryManager, LngLtdOfCountryManager>();

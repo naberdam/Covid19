@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Covid19.Models.Managers
 {
-    public class CountrySickAndDeathsOrDensityManager : ICountrySickAndDeathsPerMillionAndGrowthManager
+    public class CountrySickAndDeathsAndGrowthManager : ICountrySickAndDeathsAndGrowthManager
     {
         private MySqlDB mySqlDB;
 
-        public CountrySickAndDeathsOrDensityManager(MySqlDB db)
+        public CountrySickAndDeathsAndGrowthManager(MySqlDB db)
         {
             mySqlDB = db;
         }
@@ -31,55 +31,55 @@ namespace Covid19.Models.Managers
             return GlobalFunction.ConvertListObjectByGeneric<CountrySickAndDeathsOrDensity>(list, ConvertObjectCountrySickAndDeathsOrDensity);
         }*/
 
-        public IEnumerable<CountrySickAndDeathsPerMillionAndGrowth> GetCountryDeathsAndSickPerMillionAndGrowthOrderByDeaths(string orderBy, string date, int numYears)
+        public IEnumerable<CountrySickAndDeathsAndGrowth> GetCountryDeathsAndSickAndGrowthOrderByDeaths(string orderBy, string date, int numYears)
         {
             string countingFromYear = (2020 - numYears).ToString();
-            List<object[]> listOfDeaths = mySqlDB.GetSqlListWithoutParameters("select Country, growth, ( Cumulative_deaths*1000 / PopTotal) deathPerMillion, ( Cumulative_cases*1000 / PopTotal) sickPerMillion " +
+            List<object[]> listOfDeaths = mySqlDB.GetSqlListWithoutParameters("select Country, growth, Cumulative_deaths, Cumulative_cases " +
                 "from " +
                 "(select distinct * from who_covid_19_global_data where Date_reported = '" + date + "') sick " +
                 "inner join (select distinct t1.Location,  t1.PopTotal/ t2.PopTotal as growth, t1.PopDensity, t1.PopTotal PopTotal " +
                 "from population_worldwide t1 ,population_worldwide t2 " +
                 "where t1.Location = t2.Location and t1.Time = '2020' and t2.Time = " + countingFromYear + ") " +
-                "density on sick.Country = density.Location order by deathPerMillion " + orderBy);
-            return GlobalFunction.ConvertListObjectByGeneric<CountrySickAndDeathsPerMillionAndGrowth>(listOfDeaths, ConvertObjectCountrySickAndDeathsPerMillionAndGrowth);
+                "density on sick.Country = density.Location order by Cumulative_deaths " + orderBy);
+            return GlobalFunction.ConvertListObjectByGeneric<CountrySickAndDeathsAndGrowth>(listOfDeaths, ConvertObjectCountrySickAndDeathsAndGrowth);
         }
 
-        public IEnumerable<CountrySickAndDeathsPerMillionAndGrowth> GetCountryDeathsAndSickPerMillionAndGrowthOrderByGrowth(string orderBy, string date, int numYears)
+        public IEnumerable<CountrySickAndDeathsAndGrowth> GetCountryDeathsAndSickAndGrowthOrderByGrowth(string orderBy, string date, int numYears)
         {
             string countingFromYear = (2020 - numYears).ToString();
-            List<object[]> listOfGrowth = mySqlDB.GetSqlListWithoutParameters("select Country, growth, ( Cumulative_deaths*1000 / PopTotal) deathPerMillion, ( Cumulative_cases*1000 / PopTotal) sickPerMillion " +
+            List<object[]> listOfGrowth = mySqlDB.GetSqlListWithoutParameters("select Country, growth, Cumulative_deaths, Cumulative_cases " +
                 "from " +
                 "(select distinct * from who_covid_19_global_data where Date_reported = '" + date + "') sick " +
                 "inner join (select distinct t1.Location,  t1.PopTotal/ t2.PopTotal as growth, t1.PopDensity, t1.PopTotal PopTotal " +
                 "from population_worldwide t1 ,population_worldwide t2 " +
                 "where t1.Location = t2.Location and t1.Time = '2020' and t2.Time = " + countingFromYear + ") " +
                 "density on sick.Country = density.Location order by growth " + orderBy);
-            return GlobalFunction.ConvertListObjectByGeneric<CountrySickAndDeathsPerMillionAndGrowth>(listOfGrowth, ConvertObjectCountrySickAndDeathsPerMillionAndGrowth);
+            return GlobalFunction.ConvertListObjectByGeneric<CountrySickAndDeathsAndGrowth>(listOfGrowth, ConvertObjectCountrySickAndDeathsAndGrowth);
         }
 
-        public IEnumerable<CountrySickAndDeathsPerMillionAndGrowth> GetCountryDeathsAndSickPerMillionAndGrowthOrderBySick(string orderBy, string date, int numYears)
+        public IEnumerable<CountrySickAndDeathsAndGrowth> GetCountryDeathsAndSickAndGrowthOrderBySick(string orderBy, string date, int numYears)
         {
             string countingFromYear = (2020 - numYears).ToString();
-            List<object[]> listOfSick = mySqlDB.GetSqlListWithoutParameters("select Country, growth, ( Cumulative_deaths*1000 / PopTotal) deathPerMillion, ( Cumulative_cases*1000 / PopTotal) sickPerMillion " +
+            List<object[]> listOfSick = mySqlDB.GetSqlListWithoutParameters("select Country, growth, Cumulative_deaths, Cumulative_cases " +
                 "from " +
                 "(select distinct * from who_covid_19_global_data where Date_reported = '" + date + "') sick " +
                 "inner join (select distinct t1.Location,  t1.PopTotal/ t2.PopTotal as growth, t1.PopDensity, t1.PopTotal PopTotal " +
                 "from population_worldwide t1 ,population_worldwide t2 " +
                 "where t1.Location = t2.Location and t1.Time = '2020' and t2.Time = " + countingFromYear + ") " +
-                "density on sick.Country = density.Location order by sickPerMillion " + orderBy);
-            return GlobalFunction.ConvertListObjectByGeneric<CountrySickAndDeathsPerMillionAndGrowth>(listOfSick, ConvertObjectCountrySickAndDeathsPerMillionAndGrowth);
+                "density on sick.Country = density.Location order by Cumulative_cases " + orderBy);
+            return GlobalFunction.ConvertListObjectByGeneric<CountrySickAndDeathsAndGrowth>(listOfSick, ConvertObjectCountrySickAndDeathsAndGrowth);
         }
 
-        public static CountrySickAndDeathsPerMillionAndGrowth ConvertObjectCountrySickAndDeathsPerMillionAndGrowth(object[] infoFromDB)
+        public static CountrySickAndDeathsAndGrowth ConvertObjectCountrySickAndDeathsAndGrowth(object[] infoFromDB)
         {
             try
             {
-                return new CountrySickAndDeathsPerMillionAndGrowth
+                return new CountrySickAndDeathsAndGrowth
                 {
                     Country = infoFromDB[0].ToString(),
                     Growth = Convert.ToDouble(infoFromDB[1].ToString()),
-                    DeathPerMillion = Convert.ToInt32(infoFromDB[2].ToString()),
-                    SickPerMillion = Convert.ToInt32(infoFromDB[3].ToString())
+                    CumulativeDeaths = Convert.ToInt32(infoFromDB[2].ToString()),
+                    CumulativeCases = Convert.ToInt32(infoFromDB[3].ToString())
                 };
             }
             catch (Exception)
