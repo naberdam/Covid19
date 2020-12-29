@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Covid19.Models.Managers
 {
-    public class CountrySickAndDeathsOrDensityManager : ICountrySickAndDeathsPerMillionAndGrowthManager
+    public class CountrySickAndDeathsPerMillionAndGrowthManager : ICountrySickAndDeathsPerMillionAndGrowthManager
     {
         private MySqlDB mySqlDB;
 
-        public CountrySickAndDeathsOrDensityManager(MySqlDB db)
+        public CountrySickAndDeathsPerMillionAndGrowthManager(MySqlDB db)
         {
             mySqlDB = db;
         }

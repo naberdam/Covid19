@@ -36,23 +36,12 @@ namespace Covid19.Controllers
                 case "Sick":
                     IEnumerable<CountriesDeathsVsDensity2020> listSick = countriesDeathsVsDensity2020.GetBySick(orderBy, date);
                     return GlobalFunction.CheckResultAndReturnByGeneric<CountriesDeathsVsDensity2020>(listSick, NotFound, Ok);
-                case "Total":
+                /*case "Total":
                     IEnumerable<CountriesDeathsVsDensity2020> listTotal = countriesDeathsVsDensity2020.GetByTotal(orderBy, date);
-                    return GlobalFunction.CheckResultAndReturnByGeneric<CountriesDeathsVsDensity2020>(listTotal, NotFound, Ok);
+                    return GlobalFunction.CheckResultAndReturnByGeneric<CountriesDeathsVsDensity2020>(listTotal, NotFound, Ok);*/
                 default:
                     return BadRequest();
             }           
         }
-
-
-
-        /*private ActionResult<IEnumerable<CountriesDeathsVsDensity2020>> CheckResultAndReturn(IEnumerable<CountriesDeathsVsDensity2020> countriesDeathsVsDensity2020)
-        {
-            if (countriesDeathsVsDensity2020 == null)
-            {
-                return NotFound(countriesDeathsVsDensity2020);
-            }
-            return Ok(countriesDeathsVsDensity2020);
-        }*/
     }
 }

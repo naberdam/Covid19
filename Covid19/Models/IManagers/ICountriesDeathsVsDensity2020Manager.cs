@@ -13,6 +13,6 @@ namespace Covid19.Models.IManagers
         IEnumerable<CountriesDeathsVsDensity2020> GetByDeaths(string orderBy, string date);
 
         IEnumerable<CountriesDeathsVsDensity2020> GetBySick(string orderBy, string date);
-        public IEnumerable<CountriesDeathsVsDensity2020> GetByTotal(string orderBy, string date);
+       /* IEnumerable<CountriesDeathsVsDensity2020> GetByTotal(string orderBy, string date);*/
     }
 }

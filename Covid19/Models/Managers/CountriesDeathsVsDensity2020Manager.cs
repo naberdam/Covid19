@@ -18,7 +18,7 @@ namespace Covid19.Models.Managers
         }
         public IEnumerable<CountriesDeathsVsDensity2020> GetByDeaths(string orderBy, string date)
         {
-            List<object[]> listByDeaths = mySqlDB.GetSqlListWithoutParameters("select distinct Country, Cumulative_cases, Cumulative_deaths, PopTotal, PopDensity " +
+            List<object[]> listByDeaths = mySqlDB.GetSqlListWithoutParameters("select distinct Country, Cumulative_cases, Cumulative_deaths, PopDensity " +
                 "from (select distinct * from who_covid_19_global_data where Date_reported = '" + date + "') sick " +
                 "inner join (select distinct * from population_worldwide where time = 2020) density on sick.Country = density.Location " +
                 "order by sick.Cumulative_deaths " + orderBy);
@@ -27,7 +27,7 @@ namespace Covid19.Models.Managers
 
         public IEnumerable<CountriesDeathsVsDensity2020> GetByDensity(string orderBy, string date)
         {
-            List<object[]> listByDensity = mySqlDB.GetSqlListWithoutParameters("select distinct Country, Cumulative_cases, Cumulative_deaths, PopTotal, PopDensity " +
+            List<object[]> listByDensity = mySqlDB.GetSqlListWithoutParameters("select distinct Country, Cumulative_cases, Cumulative_deaths,  PopDensity " +
                 "from (select distinct * from who_covid_19_global_data where Date_reported = '" + date + "') sick " +
                 "inner join (select distinct * from population_worldwide where time = 2020) density on sick.Country = density.Location " +
                 "order by density.PopDensity " + orderBy);
@@ -35,20 +35,20 @@ namespace Covid19.Models.Managers
         }
         public IEnumerable<CountriesDeathsVsDensity2020> GetBySick(string orderBy, string date)
         {
-            List<object[]> listBySick = mySqlDB.GetSqlListWithoutParameters("select distinct Country, Cumulative_cases, Cumulative_deaths, PopTotal, PopDensity " +
+            List<object[]> listBySick = mySqlDB.GetSqlListWithoutParameters("select distinct Country, Cumulative_cases, Cumulative_deaths, PopDensity " +
                 "from (select distinct * from who_covid_19_global_data where Date_reported = '" + date + "') sick " +
                 "inner join (select distinct * from population_worldwide where time = 2020) density on sick.Country = density.Location " +
                 "order by Cumulative_cases " + orderBy);
             return GlobalFunction.ConvertListObjectByGeneric<CountriesDeathsVsDensity2020>(listBySick, ConvertObjectCountriesDeathsVsDensity2020);
         }
-        public IEnumerable<CountriesDeathsVsDensity2020> GetByTotal(string orderBy, string date)
+        /*public IEnumerable<CountriesDeathsVsDensity2020> GetByTotal(string orderBy, string date)
         {
-            List<object[]> listBySick = mySqlDB.GetSqlListWithoutParameters("select distinct Country, Cumulative_cases, Cumulative_deaths, PopTotal, PopDensity " +
+            List<object[]> listBySick = mySqlDB.GetSqlListWithoutParameters("select distinct Country, Cumulative_cases, Cumulative_deaths, PopDensity " +
                 "from (select distinct * from who_covid_19_global_data where Date_reported = '" + date + "') sick " +
                 "inner join (select distinct * from population_worldwide where time = 2020) density on sick.Country = density.Location " +
                 "order by PopTotal " + orderBy);
             return GlobalFunction.ConvertListObjectByGeneric<CountriesDeathsVsDensity2020>(listBySick, ConvertObjectCountriesDeathsVsDensity2020);
-        }
+        }*/
 
         public static CountriesDeathsVsDensity2020 ConvertObjectCountriesDeathsVsDensity2020(object[] infoFromDB)
         {
@@ -59,8 +59,7 @@ namespace Covid19.Models.Managers
                     Country = infoFromDB[0].ToString(),
                     CumulativeCases = Convert.ToInt32(infoFromDB[1].ToString()),
                     CumulativeDeaths = Convert.ToInt32(infoFromDB[2].ToString()),
-                    PopTotal = Convert.ToDouble(infoFromDB[3].ToString()),
-                    PopDensity = Convert.ToDouble(infoFromDB[4].ToString())
+                    PopDensity = Convert.ToDouble(infoFromDB[3].ToString())
                 };
             }
             catch (Exception)
