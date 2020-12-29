@@ -8,6 +8,6 @@ namespace Covid19.Models.IManagers
 {
     public interface ICountriesDeathsAndSickPreMillionBySickManager
     {
-        IEnumerable<CountriesDeathsAndSickPreMillionBySick> GetBySick(string orderBy);
+        IEnumerable<CountriesDeathsAndSickPreMillionBySick> GetBySick(string orderBy, string date);
     }
 }

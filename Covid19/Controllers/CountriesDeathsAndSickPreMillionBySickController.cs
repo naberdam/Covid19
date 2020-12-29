@@ -19,12 +19,12 @@ namespace Covid19.Controllers
         {
             countriesDeathsAndSickPreMillionBySickManager = iCountriesDeathsAndSickPreMillionBySickManager;
         }
-        // GET: api/CountriesDeathsAndSickPreMillionBySick
+        // GET: api/CountriesDeathsAndSickPreMillionBySick?date=16/11/2020
         [HttpGet]
-        public ActionResult<IEnumerable<CountriesDeathsAndSickPreMillionBySick>> GetCountriesDeathsAndSickPreMillionBySick([FromQuery] bool desc=false)
+        public ActionResult<IEnumerable<CountriesDeathsAndSickPreMillionBySick>> GetCountriesDeathsAndSickPreMillionBySick([FromQuery] string date, [FromQuery] bool desc=false)
         {
             string orderBy = GlobalFunction.ConvertToOrderBy(desc);
-            IEnumerable<CountriesDeathsAndSickPreMillionBySick> list = countriesDeathsAndSickPreMillionBySickManager.GetBySick(orderBy);
+            IEnumerable<CountriesDeathsAndSickPreMillionBySick> list = countriesDeathsAndSickPreMillionBySickManager.GetBySick(orderBy, date);
             return GlobalFunction.CheckResultAndReturnByGeneric<CountriesDeathsAndSickPreMillionBySick>(list, NotFound, Ok);
         }
     }
