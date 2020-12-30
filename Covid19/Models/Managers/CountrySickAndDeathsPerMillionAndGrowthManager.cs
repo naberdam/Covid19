@@ -78,8 +78,8 @@ namespace Covid19.Models.Managers
                 {
                     Country = infoFromDB[0].ToString(),
                     Growth = Convert.ToDouble(infoFromDB[1].ToString()),
-                    DeathPerMillion = Convert.ToInt32(infoFromDB[2].ToString()),
-                    SickPerMillion = Convert.ToInt32(infoFromDB[3].ToString())
+                    DeathPerMillion = Convert.ToDouble(infoFromDB[2].ToString()),
+                    SickPerMillion = Convert.ToDouble(infoFromDB[3].ToString())
                 };
             }
             catch (Exception)
