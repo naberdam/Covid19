@@ -33,9 +33,9 @@ function addMarker(MyLatLong, country, number, state, date, string = 'on') {
     let contentString;
     //pop up window marker
     if (typeof(date) != "undefined") {
-        contentString = "<b>" + country + "</b>" + "</br>Number of " + state + string + date + " is <b>" + number + "</b>";
+        contentString = "<h6>" + country + "</h6>" + "</br> <p> Number of " + state + string + date + " is </p> <h6>" + number + "</h6>";
     } else {
-        contentString = "<b>" + country + "</b>" + "</br>Number of " + state + " until today is <b>" + number + "</b>";
+        contentString = "<h6>" + country + "</h6>" + "</br> <p> Number of " + state + " until today is </p>  <h6>" + number + "</h6>";
     }
     if (typeof(infos) != 'undefined') {
         infos.close();
@@ -62,7 +62,7 @@ function onSubmitSpecificDate(event) {
 
         },
         error: function (request) {
-            alert("error");
+            alert("sorry, we don't have this data");
         }
     });
 }
@@ -149,13 +149,7 @@ function onSubmitSpecificCountrySpecificDateDeathOrSick(event) {
     if (untilOrThisDate == 'Avg' || untilOrThisDate == 'Div') {
         date = event.target.elements.dateDownQuery.value;
         let convertedDate = "" + date[8] + date[9] + "/" + date[5] + date[6] + "/" + date[0] + date[1] + date[2] + date[3];
-        if (country == "allOver") {
-            url = "/api/SpecificCountryAndDateAvgSick/?divOrAvg=" + untilOrThisDate + "&date=" + convertedDate;
-            country = 'all over the world';
-        } else {
-            url = "/api/SpecificCountryAndDateAvgSick/?divOrAvg=" + untilOrThisDate + "&country=" + country + "&date=" + convertedDate;
-            // country spec avg
-        }
+        url = "/api/SpecificCountryAndDateAvgSick/?divOrAvg=" + untilOrThisDate + "&country=" + country + "&date=" + convertedDate;
     }
 
     else if (country == "allOver") {

@@ -26,6 +26,65 @@ function onsubmitComplex(event) {
     }  
 }
 
+function onsubmitAvg(event) {
+     // from SpecificCountryAndDateAvgSick
+    event.preventDefault();
+    let date = event.target.elements.dateDownQuery.value;
+    let convertedDate = "" + date[8] + date[9] + "/" + date[5] + date[6] + "/" + date[0] + date[1] + date[2] + date[3];
+    let descOrAsc = event.target.elements.descOrAscDownQuery.value;
+
+    if (descOrAsc == 'desc') {
+        url = "/api/SpecificCountryAndDateAvgSick/?divOrAvg=Avg&date=" + convertedDate + "&desc=true";
+    } else {
+        url = "/api/SpecificCountryAndDateAvgSick/?divOrAvg=Avg&date=" + convertedDate + "&desc=false";
+    }
+    $.ajax({
+        url: url,
+        type: "GET",
+        success: function (data) {
+            deleteTable();
+            let table = document.querySelector("table");
+            //sorttable.makeSortable(table)
+            generateTableHead(table, Object.keys(data[0]));
+            generateTable(table, data);
+        },
+        error: function () {
+            alert("sorry, we don't have this data");
+        }
+    });
+
+}
+
+
+function onsubmitAvgDiv(event) {
+    // from SpecificCountryAndDateAvgSick
+    event.preventDefault();
+    let date = event.target.elements.dateDownQuery.value;
+    let convertedDate = "" + date[8] + date[9] + "/" + date[5] + date[6] + "/" + date[0] + date[1] + date[2] + date[3];
+    let descOrAsc = event.target.elements.descOrAscDownQuery.value;
+
+    if (descOrAsc == 'desc') {
+        url = "/api/SpecificCountryAndDateAvgSick/?divOrAvg=Div&date=" + convertedDate + "&desc=true";
+    } else {
+        url = "/api/SpecificCountryAndDateAvgSick/?divOrAvg=Div&date=" + convertedDate + "&desc=false";
+    }
+    $.ajax({
+        url: url,
+        type: "GET",
+        success: function (data) {
+            deleteTable();
+            let table = document.querySelector("table");
+            //sorttable.makeSortable(table)
+            generateTableHead(table, Object.keys(data[0]));
+            generateTable(table, data);
+        },
+        error: function () {
+            alert("sorry, we don't have this data");
+        }
+    });
+
+}
+
 function gdpTotal(date, descOrAsc, orderBy) { //working
     // from CountrySickDeathsAndGdpByGdpController
 
@@ -44,7 +103,7 @@ function gdpTotal(date, descOrAsc, orderBy) { //working
             generateTable(table, data);
         },
         error: function () {
-            alert("error");
+            alert("sorry, we don't have this data");
         }
     });
 }
@@ -68,7 +127,7 @@ function gdpPerMillion(date, descOrAsc, orderBy) { // working
             generateTable(table, data);
         },
         error: function () {
-            alert("error");
+            alert("sorry, we don't have this data");
         }
     });
 }
@@ -92,7 +151,7 @@ function popGrowthPerMillion(date, descOrAsc, numYears, orderBy) { // working
             generateTable(table, data);
         },
         error: function () {
-            alert("error");
+            alert("sorry, we don't have this data");
         }
     });
 }
@@ -114,7 +173,7 @@ function popGrowthTotal(date, descOrAsc, numYears, orderBy) {
             generateTable(table, data);
         },
         error: function () {
-            alert("error");
+            alert("sorry, we don't have this data");
         }
     });
 }
@@ -137,7 +196,7 @@ function densityTotal(date, descOrAsc, orderBy) {
             generateTable(table, data);
         },
         error: function () {
-            alert("error");
+            alert("sorry, we don't have this data");
         }
     });
 }
@@ -159,7 +218,7 @@ function densityPerMillion(date, descOrAsc, orderBy) {
             generateTable(table, data);
         },
         error: function () {
-            alert("error");
+            alert("sorry, we don't have this data");
         }
     });
 }
@@ -183,7 +242,7 @@ function densityPerMillion(date, descOrAsc, orderBy) {
 //            generateTable(table, data);
 //        },
 //        error: function () {
-//            alert("error");
+//            alert("sorry, we don't have this data");
 //        }
 //    });
 //}
@@ -206,7 +265,7 @@ function perMillionOrderBySickGdpDeath(date, orderBy, descOrAsc) {
             generateTable(table, data);
         },
         error: function () {
-            alert("error");
+            alert("sorry, we don't have this data");
         }
     });
 }
@@ -231,7 +290,7 @@ function orderByDensity(date, descOrAsc, numberOfYears) {
             generateTable(table, data);
         },
         error: function () {
-            alert("error");
+            alert("sorry, we don't have this data");
         }
     });
 }
@@ -254,7 +313,7 @@ function orderByGdp(date, descOrAsc) {
             generateTable(table, data);
         },
         error: function () {
-            alert("error");
+            alert("sorry, we don't have this data");
         }
     });
 }
