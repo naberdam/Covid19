@@ -72,7 +72,7 @@
                     </span>
                     <label> please tell me how many </label>
                     <span class="state">
-                        <select id="state" name="state" required>
+                        <select id="state" name="state" onchange="onChangeState(event)"required>
                             <option disabled selected value> -- select an option -- </option>
                             <option value="Sick">sick people</option>
                             <option value="Deaths">dead people</option>
@@ -331,12 +331,15 @@
                             <option value="Zimbabwe">Zimbabwe</option>
                         </select>
                     </div>
-                    <label id="untilTodayLabel"> untilToday </label>
-                    <span class="untilOrThisDate" id="untilOrThisDate" style="display:none">
-                        <select id="untilOrThisDate" name="untilOrThisDate">
-                            <option disabled selected value> -- select an option -- </option>
-                            <option value="Cumulative">until date</option>
-                            <option value="ThisDay">on date</option>
+                    <!--<label id="untilTodayLabel"> untilToday </label>-->
+                    <span class="untilOrThisDate" id="untilOrThisDate" style="display:block">
+                        <select id="untilOrThisDate" name="untilOrThisDate" onchange="onChangeDate(event)">
+                            <option id="select" disabled selected value> -- select an option -- </option>
+                            <option value="untilToday" id="untilToday" style="display:none">until today</option>
+                            <option value="Cumulative" id="Cumulative" style="display:none">until date</option>
+                            <option value="ThisDay" id="ThisDay" style="display:none">on date</option>
+                            <option value="Avg" id="Avg" style="display:none">each day in avg on the week of</option>
+                            <option value="Div" id="Div" style="display:none">each day relative to last week in avg on the week of</option>
                         </select>
                     </span>
                     <span class="date" id="dateDownQuery" style="display:none">

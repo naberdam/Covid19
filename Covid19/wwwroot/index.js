@@ -141,13 +141,50 @@ function getLatLong(country) {
 
 function onChangeCountry(event) {
     if (event.target.value == 'allOver') {
-        document.getElementById('untilOrThisDate').style.display = 'none';
-        document.getElementById('untilTodayLabel').style.display = 'block';
+        document.getElementById('Cumulative').style.display = 'none';
+        document.getElementById('Cumulative').label = 'choose again!';
+        document.getElementById('ThisDay').style.display = 'none';
+        document.getElementById('ThisDay').label = 'choose again!';
+        document.getElementById('untilToday').style.display = 'block';
+        document.getElementById('untilToday').label = 'until today';
         document.getElementById('dateDownQuery').style.display = 'none';
+        //document.getElementById('dateDownQuery').style.display = 'none';
     } else {
+        document.getElementById('ThisDay').label = 'on date';
+        document.getElementById('Cumulative').label = 'until date';
+        document.getElementById('Cumulative').style.display = 'block';
+        document.getElementById('ThisDay').style.display = 'block';
+        //document.getElementById('dateDownQuery').style.display = 'block';
+        document.getElementById('untilToday').label = 'choose again!';
+        document.getElementById('untilToday').style.display = 'none';
+        document.getElementById('dateDownQuery').style.display = 'none';
+    }
+}
+
+function onChangeDate(event) {
+    if (event.target.value != 'untilToday') {
         document.getElementById('dateDownQuery').style.display = 'block';
-        document.getElementById('untilOrThisDate').style.display = 'block';
-        document.getElementById('untilTodayLabel').style.display = 'none';
+    } else {
+        document.getElementById('dateDownQuery').style.display = 'none';
+    }
+}
+
+function onChangeState(event) {
+    if (event.target.value == 'Sick') {
+        document.getElementById('Avg').style.display = 'block';
+        document.getElementById('Avg').label = 'each day in avg on the week of';
+        document.getElementById('Div').style.display = 'block';
+        document.getElementById('Div').label = 'each day relative to last week in avg on the week of';
+        document.getElementById('dateDownQuery').style.display = 'none';
+        //document.getElementById('dateDownQuery').style.display = 'block';
+       
+    } else { // deaths
+        document.getElementById('Avg').style.display = 'none';
+        document.getElementById('Avg').label = 'choose again!';
+        document.getElementById('dateDownQuery').style.display = 'none';
+        //document.getElementById('dateDownQuery').style.display = 'none';
+        document.getElementById('Div').style.display = 'none';
+        document.getElementById('Div').label = 'choose again!';
     }
 }
 
@@ -157,7 +194,19 @@ function onSubmitSpecificCountrySpecificDateDeathOrSick(event) {
     let date;
     let url;
     let country = event.target.elements.country.value;
-    if (country == "allOver") {
+    if (untilOrThisDate == 'Avg' || untilOrThisDate == 'Div') {
+        date = event.target.elements.dateDownQuery.value;
+        let convertedDate = "" + date[8] + date[9] + "/" + date[5] + date[6] + "/" + date[0] + date[1] + date[2] + date[3];
+        if (country == "allOver") {
+            url = "/api/SpecificCountryAndDateAvgSick/?divOrAvg=" + untilOrThisDate + "&date=" + convertedDate;
+            country = 'all over the world';
+        } else {
+            url = "/api/SpecificCountryAndDateAvgSick/?divOrAvg=" + untilOrThisDate + "&country=" + country + "&date=" + convertedDate;
+            // country spec avg
+        }
+    }
+
+    else if (country == "allOver") {
         url = "/api/OneIntVariable/?deathsOrSick=" + event.target.elements.state.value;
         country = 'all over the world';
        

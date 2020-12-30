@@ -27,13 +27,13 @@ namespace Covid19.Controllers
             string orderBy = GlobalFunction.ConvertToOrderBy(desc);
             switch (densityOrDeath)
             {
-                case "Density":
+                case "DensityOrder":
                     IEnumerable<CountriesDeathsVsDensity2020> listDensity = countriesDeathsVsDensity2020.GetByDensity(orderBy, date);
                     return GlobalFunction.CheckResultAndReturnByGeneric<CountriesDeathsVsDensity2020>(listDensity, NotFound, Ok);
-                case "Deaths":
+                case "DeathsOrder":
                     IEnumerable<CountriesDeathsVsDensity2020> listDeaths = countriesDeathsVsDensity2020.GetByDeaths(orderBy, date);
                     return GlobalFunction.CheckResultAndReturnByGeneric<CountriesDeathsVsDensity2020>(listDeaths, NotFound, Ok);
-                case "Sick":
+                case "SickOrder":
                     IEnumerable<CountriesDeathsVsDensity2020> listSick = countriesDeathsVsDensity2020.GetBySick(orderBy, date);
                     return GlobalFunction.CheckResultAndReturnByGeneric<CountriesDeathsVsDensity2020>(listSick, NotFound, Ok);
                 /*case "Total":
