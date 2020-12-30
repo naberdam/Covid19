@@ -164,12 +164,20 @@ iframe {
 	background: linear-gradient(45deg, #00dbde, #fc00ff);
 }
 
-.wrap-contact100 {
-  width: 500px;
+.wrap-contact100main {
+  width: 30%;
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
   padding: 42px 55px 45px 55px;
+}
+
+.wrap-contact100complex {
+	width: 52%;
+	background: #fff;
+	border-radius: 10px;
+	overflow: hidden;
+	padding: 42px 55px 45px 55px;
 }
 
 
@@ -275,6 +283,7 @@ textarea.input100 {
 /*------------------------------------------------------------------
 [ Button ]*/
 .container-contact100-form-btn {
+	display: block;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -285,14 +294,14 @@ textarea.input100 {
 }
 
 .wrap-contact100-form-btn {
-  width: 100%;
-  display: block;
-  position: relative;
-  z-index: 1;
-  border-radius: 5px;
-  overflow: hidden;
-
+	display: inline-block;
+	text-align: center;
+	position: relative;
+	z-index: 1;
+	border-radius: 5px;
+	overflow: hidden;
 }
+
 
 .contact100-form-bgbtn {
   position: absolute;

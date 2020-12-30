@@ -1,5 +1,7 @@
 ﻿let marker;
 let map;
+let infos;
+let sickOrDeath = '';
 
 //// Initialize and add the map
 function initMap() {
@@ -25,85 +27,24 @@ function onSubmitNevigate(event) {
 }
 
 
-function addMarker(MyLatLong, country, number, state, date) {
+function addMarker(MyLatLong, country, number, state, date, string = 'on') {
     //let contentString;
     let infoWindow = new google.maps.InfoWindow();
     let contentString;
     //pop up window marker
     if (typeof(date) != "undefined") {
-        contentString = "<b>" + country + "</b>" + "</br>Number of " + state + " on " + date + " is <b>" + number + "</b>";
+        contentString = "<b>" + country + "</b>" + "</br>Number of " + state + string + date + " is <b>" + number + "</b>";
     } else {
         contentString = "<b>" + country + "</b>" + "</br>Number of " + state + " until today is <b>" + number + "</b>";
     }
-   
-    //if (markersColor.includes(country)) {
-    //    marker = new google.maps.Marker({
-    //        map: map,
-    //        position: myLatLng,
-    //        store_id: country,
-    //        icon: {
-    //            url: "https://www.google.com/mapfiles/marker_green.png"
-    //        }
-    //    });
-    //    infoWindow.setContent("<div style = 'width:200px;min-height:40px'>" + contentString + "</div>");
-    //    infoWindow.open(map, marker);
-    //}
-    //if the marker click
-   // else {
-    //marker = new google.maps.Marker({
-    //    map: map,
-    //    position: MyLatLong,
-    //    store_id: country,
-    //    icon: {
-    //        url: "https://www.google.com/mapfiles/marker_green.png"
-    //    }
-    //});
+    if (typeof(infos) != 'undefined') {
+        infos.close();
+    }
     infoWindow.setContent("<div style = 'width:200px;min-height:40px'>" + contentString + "</div>");
     infoWindow.open(map, marker);
+    infos = infoWindow;
     marker.setPosition(MyLatLong);
     map.setCenter(MyLatLong);
-    //allMarker.push(marker);
-
-    (function (marker, country) {
-        google.maps.event.addListener(marker, "click", function (e) {
-            if (infoWindow) infoWindow.close();
-            //delete all route 
-            for (let [key, value] of flightPaths.entries()) {
-                value.setMap(null);
-            }
-            //reset all the markers and there color
-            for (i = 0; i < allMarker.length; i++) {
-                allMarker[i].setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
-
-            }
-            markersColor = [];
-            //Change the marker icon
-            marker.setIcon('https://www.google.com/mapfiles/marker_green.png');
-            markersColor.push(country);
-            //Wrap the content inside an HTML DIV in order to set height and width of InfoWindow.
-            infoWindow.setContent("<div style = 'width:200px;min-height:40px'>" + contentString + "</div>");
-            infoWindow.open(map, marker);
-            updateFlightInfo(country)
-            polyline(country, map, country)
-            flightBoldMap(country)
-        });
-        //Attach click event to the map.
-        google.maps.event.addDomListenerOnce(map, "click", function (e) {
-            // deleting bolded row?
-            if (flightIsBold(country)) {
-                flightUnbold(country)
-            }
-            marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
-            markersColor.pop(country);
-            if (infoWindow) infoWindow.close();
-            emptyFlightInfo()
-            for (let [key, value] of flightPaths.entries()) {
-                if (key === marker.get('store_id')) {
-                    value.setMap(null);
-                }
-            }
-        });
-    })(marker, country);
 }
 
 function onSubmitSpecificDate(event) {
@@ -148,16 +89,25 @@ function onChangeCountry(event) {
         document.getElementById('untilToday').style.display = 'block';
         document.getElementById('untilToday').label = 'until today';
         document.getElementById('dateDownQuery').style.display = 'none';
-        //document.getElementById('dateDownQuery').style.display = 'none';
+        document.getElementById('Avg').style.display = 'none';
+        document.getElementById('Avg').label = 'choose again!';
+        document.getElementById('Div').style.display = 'none';
+        document.getElementById('Div').label = 'choose again!';
     } else {
         document.getElementById('ThisDay').label = 'on date';
         document.getElementById('Cumulative').label = 'until date';
         document.getElementById('Cumulative').style.display = 'block';
         document.getElementById('ThisDay').style.display = 'block';
-        //document.getElementById('dateDownQuery').style.display = 'block';
         document.getElementById('untilToday').label = 'choose again!';
         document.getElementById('untilToday').style.display = 'none';
-        document.getElementById('dateDownQuery').style.display = 'none';
+        document.getElementById('dateDownQuery').style.display = 'block';
+        if (sickOrDeath == 'sick') {
+            document.getElementById('Avg').style.display = 'block';
+            document.getElementById('Avg').label = 'each day in avg on the week of';
+            document.getElementById('Div').style.display = 'block';
+            document.getElementById('Div').label = 'each day relative to last week in avg on the week of';
+        }
+
     }
 }
 
@@ -171,6 +121,7 @@ function onChangeDate(event) {
 
 function onChangeState(event) {
     if (event.target.value == 'Sick') {
+        sickOrDeath = 'sick';
         document.getElementById('Avg').style.display = 'block';
         document.getElementById('Avg').label = 'each day in avg on the week of';
         document.getElementById('Div').style.display = 'block';
@@ -179,6 +130,7 @@ function onChangeState(event) {
         //document.getElementById('dateDownQuery').style.display = 'block';
        
     } else { // deaths
+        sickOrDeath = 'death';
         document.getElementById('Avg').style.display = 'none';
         document.getElementById('Avg').label = 'choose again!';
         document.getElementById('dateDownQuery').style.display = 'none';
@@ -220,9 +172,17 @@ function onSubmitSpecificCountrySpecificDateDeathOrSick(event) {
         url: url,
         type: "GET",
         success: function (data) {
-            let number = data[0].sum;
+            let number;
+            let stringToSend;
+            if ('sum' in data[0]) {
+                number = data[0].sum;
+                stringToSend = ' on '
+            } else if ('avgSick' in data[0]) {
+                number = data[0].avgSick;
+                stringToSend = ' in average in each day in the week of '
+            }
             var latLong = getLatLong(country);
-            addMarker(latLong, country, number, event.target.elements.state.value, date);
+            addMarker(latLong, country, number, event.target.elements.state.value, date, stringToSend);
             $("#contact100-form validate-form")[0].reset();
         },
         error: function (request) {

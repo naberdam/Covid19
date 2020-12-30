@@ -27,91 +27,141 @@
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
-    <body> 
-        <div class="grid-container">
-            <div class="container-contact100">
-                <div class="wrap-contact100">
-                    <form class="contact100-form validate-form" onsubmit="onsubmitComplex(event)">
-                        <span class="contact100-form-title">
-                            What do you want to know?
-                        </span>
-                        <label>
-                            Please tell me the number of sick and dead
-                        </label>
-                        <div class="count">
-                            <select id="count" name="state">
-                                <option disabled selected value> -- select an option -- </option>
-                                <option value="PerMillion">per million people</option>
-                                <option value="TotalNumber">(total number)</option>
-                            </select>
-                        </div>
-                        <label>from Corona in each country on date</label>
-                        <div class="date">
-                            <label for="date">date:</label>
-                            <input type="date" id="toDate" name="date"
-                                   value="2020-11-16"
-                                   min="2019-12-01" max="2020-11-16">
-                        </div>
-                        <label>with additional data of:</label><br>
-                        <input type="radio" id="Gdp" name="column" value="Gdp" onchange="checkColumn('Gdp')"> 
-                        <label for="Gdp">gdp</label><br>
-                        <input type="radio" id="Density" name="column" value="Density" onchange="checkColumn('Density')">
-                        <label for="Density">density in the country today</label><br>
-                        <input type="radio" id="PopulationGrowth" name="column" value="PopulationGrowth"  onchange="checkColumn('PopulationGrowth')">
-                        <label for="PopulationGrowth">population growth</label><br>
+<body>
+    <div class="grid-container">
+        <div class="container-contact100">
+            <div class="wrap-contact100complex">
+                <form class="contact100-form validate-form" onsubmit="onsubmitComplex(event)">
+                    <span class="contact100-form-title">
+                        What do you want to know?
+                    </span>
+                    <label>
+                        Please tell me the number of sick and dead
+                    </label>
+                    <select id="count" name="state">
+                        <option disabled selected value> -- select an option -- </option>
+                        <option value="PerMillion">per million people</option>
+                        <option value="TotalNumber">(total number)</option>
+                    </select>
+                    <label>from Corona in each country on date</label>
+                    <input type="date" id="toDate" name="date"
+                           value="2020-11-16"
+                           min="2019-12-01" max="2020-11-16">
+
+                    <label>with additional data of:</label><br>
+                    <input type="radio" id="Gdp" name="column" value="Gdp" onchange="checkColumn('Gdp')">
+                    <label for="Gdp">gdp</label><br>
+                    <input type="radio" id="Density" name="column" value="Density" onchange="checkColumn('Density')">
+                    <label for="Density">density in the country today</label><br>
+                    <input type="radio" id="PopulationGrowth" name="column" value="PopulationGrowth" onchange="checkColumn('PopulationGrowth')">
+                    <label for="PopulationGrowth">population growth</label><br>
 
 
-                        <label>order by</label>
-                        <div class="orederBy">
-                            <select id="orderBy" name="orderBy">
-                                <option disabled selected value> -- select an option -- </option>
-                                <option value="DeathsOrder">Dead</option>
-                                <option value="SickOrder">Sick</option>
-                                <option id = "GdpOrder" value="GdpOrder" style="display:none">gdp</option>
-                                <option id ="PopulationGrowthOrder" value="PopulationGrowthOrder" style="display:none"> population growth</option>
-                                <option id ="DensityOrder" value="DensityOrder" style="display:none"> density today</option>
-                            </select>
-                            <label id="labelForDensity" style="display:none"> choose number of years to calculate population growth</label>
-                            <input type="text" id="numberOfYears" name="numberOfYears" style="display:none" placeholder="type here the number of years" />
-                        </div>
-                        
-                        <div class="descOrAsc">
-                            <label for="descOrAsc">in</label>
-                            <select id="descOrAsc" name="descOrAsc">
-                                <option disabled selected value> -- select an option -- </option>
-                                <option value="desc">desc order</option>
-                                <option value="asc">asc order</option>
-                            </select>
-                        </div>
+                    <label>order by</label>
+                    <select id="orderBy" name="orderBy">
+                        <option disabled selected value> -- select an option -- </option>
+                        <option value="DeathsOrder">Dead</option>
+                        <option value="SickOrder">Sick</option>
+                        <option id="GdpOrder" value="GdpOrder" style="display:none">gdp</option>
+                        <option id="PopulationGrowthOrder" value="PopulationGrowthOrder" style="display:none"> population growth</option>
+                        <option id="DensityOrder" value="DensityOrder" style="display:none"> density today</option>
+                    </select>
+                    <label id="labelForDensity" style="display:none"> choose number of years to calculate population growth</label>
+                    <input type="text" id="numberOfYears" name="numberOfYears" style="display:none" placeholder="type here the number of years" />
+                    <label for="descOrAsc">in</label>
+                    <select id="descOrAsc" name="descOrAsc">
+                        <option disabled selected value> -- select an option -- </option>
+                        <option value="desc">desc order</option>
+                        <option value="asc">asc order</option>
+                    </select>
 
-
-                        <div class="container-contact100-form-btn">
-                            <div class="wrap-contact100-form-btn">
-                                <div class="contact100-form-bgbtn"></div>
-                                <button class="contact100-form-btn">
-                                    <span>
-                                        Tell me
-                                        <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-                                    </span>
-                                </button>
-                            </div>
-                        </div>
-
-                    </form>
-
-                    <div class="container-contact100-form-btn" onclick="onSubmitNevigate(event)">
+                    <div class="container-contact100-form-btn">
                         <div class="wrap-contact100-form-btn">
                             <div class="contact100-form-bgbtn"></div>
                             <button class="contact100-form-btn">
                                 <span>
-                                    Please show me basic data on the map
+                                    Tell me
                                     <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
                                 </span>
                             </button>
                         </div>
                     </div>
+
+                </form>
+
+                <form class="contact100-form validate-form" onsubmit="onsubmitComplex(event)">
+                    <label>
+                        Please show me the number of sick each day in average all over the world in the week of
+                    </label>
+                    <input type="date" id="dateDownQuery" name="dateDownQuery"
+                           value="2020-11-16"
+                           min="2019-12-01" max="2020-11-16">
+                    <label for="descOrAsc">in</label>
+                    <select id="descOrAscDownQuery" name="descOrAscDownQuery">
+                        <option disabled selected value> -- select an option -- </option>
+                        <option value="desc">desc order</option>
+                        <option value="asc">asc order</option>
+                    </select>
+                    <div class="container-contact100-form-btn">
+                        <div class="wrap-contact100-form-btn">
+                            <div class="contact100-form-bgbtn"></div>
+                            <button class="contact100-form-btn" display: inline-block>
+                                <span>
+                                    Tell me
+                                    <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+
+                <form class="contact100-form validate-form" onsubmit="onsubmitComplex(event)">
+                    <label>
+                        Please show me the relation between the number of sick in average each day in the week of
+                    </label>
+                    <input type="date" id="dateDownQuery" name="dateDownQuery"
+                           value="2020-11-16"
+                           min="2019-12-01" max="2020-11-16">
+                    <label>
+                        to the week before
+                    </label>
+                    <div class="descOrAsc">
+                        <label for="descOrAsc">in</label>
+                        <select id="descOrAscDownQuery" name="descOrAscDownQuery">
+                            <option disabled selected value> -- select an option -- </option>
+                            <option value="desc">desc order</option>
+                            <option value="asc">asc order</option>
+                        </select>
+                    </div>
+                    <div class="container-contact100-form-btn">
+                        <div class="wrap-contact100-form-btn">
+                            <div class="contact100-form-bgbtn"></div>
+                            <button class="contact100-form-btn">
+                                <span>
+                                    Tell me
+                                    <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+
+                <div class="container-contact100-form-btn" onclick="onSubmitNevigate(event)">
+                    <div class="wrap-contact100-form-btn">
+                        <div class="contact100-form-bgbtn"></div>
+                        <button class="contact100-form-btn">
+                            <span>
+                                Please show me basic data on the map
+                                <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                            </span>
+                        </button>
+                    </div>
                 </div>
-                <div style="width: 50%; height: 700px; overflow: auto; margin:50px;">
+            </div>
+
+             <div style="width: 40%; height: 700px; overflow: auto; margin:50px;">
                     <div class="limiter">
                         <div class="container-table100">
                             <div class="wrap-table100">
@@ -123,8 +173,11 @@
                     </div>
                 </div>
 
-            </div>
+
         </div>
-   
-    </body>
+    </div>
+
+
+
+</body>
 </html>
