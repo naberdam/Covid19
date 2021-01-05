@@ -37,19 +37,19 @@
                     <span class="contact100-form-title">
                         What do you want to know?
                     </span>
-                    <label> please tell me which country the number of </label>
+                    <label> please tell me on which country the amount of </label>
                     <span class="state">
                         <select id="state" name="state" required>
                             <option disabled selected value> -- select an option -- </option>
-                            <option value="Sick">sick people</option>
-                            <option value="Deaths">dead people</option>
+                            <option value="Sick">new cases of </option>
+                            <option value="Deaths">dead people from </option>
                         </select>
                     </span>
-                    <label> from coronavirus on </label>
+                    <label> coronavirus on </label>
                     <span class="date">
                         <input type="date" id="dateUpQuery" name="startDate" placeholder="dd/mm/yyyy"
-                                   value="2020-11-16"
-                                   min="2019-12-01" max="2020-11-16" required>
+                                    value="2020-11-13"
+                                    min="2020-01-01" max="2020-11-13">
                     </span>
                     <label>is the highest</label>
                     <div class="container-contact100-form-btn">
@@ -79,9 +79,9 @@
                         </select>
                     </span>
                     <label> where in </label>
-                    <div class="countryDownQuery" onchange="onChangeCountry(event)">
+                    <div class="countryDownQuery" onchange="onChangeCountry(event)" >
                         <select id="countryDownQuery" name="country" multiple required>
-                            <option disabled selected value> -- choose country -- </option>
+                            <!--<option disabled selected value> -- choose country -- </option>-->
                             <option value="allOver">all over the world</option>
                             <!--<option value="Afganistan">Afghanistan</option>  we remove this country because it didn't publish data about covid 19--> 
                             <option value="Albania">Albania</option>
@@ -333,7 +333,7 @@
                     </div>
                     <!--<label id="untilTodayLabel"> untilToday </label>-->
                     <span class="untilOrThisDate" id="untilOrThisDate" style="display:block">
-                        <select id="untilOrThisDate" name="untilOrThisDate" onchange="onChangeDate(event)">
+                        <select id="untilOrThisDate" name="untilOrThisDate" onchange="onChangeDate(event)" required>
                             <option id="select" disabled selected value> -- select an option -- </option>
                             <option value="untilToday" id="untilToday" style="display:none">until today</option>
                             <option value="Cumulative" id="Cumulative" style="display:none">until date</option>
@@ -344,8 +344,8 @@
                     </span>
                     <span class="date" id="dateDownQuery" style="display:none">
                         <input type="date" id="dateDownQuery" name="startDate" placeholder="dd/mm/yyyy"
-                                   value="2020-11-16"
-                                   min="2019-12-01" max="2020-11-16">
+                                   value="2020-11-13"
+                                    min="2020-01-01" max="2020-11-13">
                     </span>
 
                     <div class="container-contact100-form-btn">

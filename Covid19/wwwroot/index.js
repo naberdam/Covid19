@@ -27,15 +27,21 @@ function onSubmitNevigate(event) {
 }
 
 
-function addMarker(MyLatLong, country, number, state, date, string = 'on') {
+function addMarker(MyLatLong, country, number, state, date, string = ' on ') {
     //let contentString;
     let infoWindow = new google.maps.InfoWindow();
     let contentString;
+    let sickOrDead;
+    if (state == 'Sick') {
+        sickOrDead = 'new cases';
+    } else if (state == 'Deaths') {
+        sickOrDead = 'people who died';
+    }
     //pop up window marker
-    if (typeof(date) != "undefined") {
-        contentString = "<h6>" + country + "</h6>" + "</br> <p> Number of " + state + string + date + " is </p> <h6>" + number + "</h6>";
+    if (typeof (date) != "undefined") {
+        contentString = "<h6>" + country + "</h6>" + "</br> <p> Number of " + sickOrDead + string + date + " is </p> <h6>" + number + "</h6>";
     } else {
-        contentString = "<h6>" + country + "</h6>" + "</br> <p> Number of " + state + " until today is </p>  <h6>" + number + "</h6>";
+        contentString = "<h6>" + country + "</h6>" + "</br> <p> Number of " + sickOrDead + " until today is </p>  <h6>" + number + "</h6>";
     }
     if (typeof(infos) != 'undefined') {
         infos.close();

@@ -1,4 +1,38 @@
 ﻿
+
+
+function onChangeColumn(event) {
+    if (event.target.value == 'Gdp') {
+        document.getElementById('orderBy').style.display = 'none';
+        document.getElementById('Cumulative').label = 'choose again!';
+        document.getElementById('ThisDay').style.display = 'none';
+        document.getElementById('ThisDay').label = 'choose again!';
+        document.getElementById('untilToday').style.display = 'block';
+        document.getElementById('untilToday').label = 'until today';
+        document.getElementById('dateDownQuery').style.display = 'none';
+        document.getElementById('Avg').style.display = 'none';
+        document.getElementById('Avg').label = 'choose again!';
+        document.getElementById('Div').style.display = 'none';
+        document.getElementById('Div').label = 'choose again!';
+    } else {
+        document.getElementById('ThisDay').label = 'on date';
+        document.getElementById('Cumulative').label = 'until date';
+        document.getElementById('Cumulative').style.display = 'block';
+        document.getElementById('ThisDay').style.display = 'block';
+        document.getElementById('untilToday').label = 'choose again!';
+        document.getElementById('untilToday').style.display = 'none';
+        document.getElementById('dateDownQuery').style.display = 'block';
+        if (sickOrDeath == 'sick') {
+            document.getElementById('Avg').style.display = 'block';
+            document.getElementById('Avg').label = 'each day in avg on the week of';
+            document.getElementById('Div').style.display = 'block';
+            document.getElementById('Div').label = 'each day relative to last week in avg on the week of';
+        }
+
+    }
+}
+
+
 function onsubmitComplex(event) {
     event.preventDefault();
     let date = event.target.elements.date.value;
@@ -335,20 +369,29 @@ function checkOrderBy(orderBy) {
 function checkColumn(newCol) {
     if (newCol == 'Density') {
         document.getElementById('DensityOrder').style.display = 'block';
+        document.getElementById('DensityOrder').label = 'density today';
         document.getElementById('PopulationGrowthOrder').style.display = 'none';
+        document.getElementById('PopulationGrowthOrder').label = 'choose again!';
         document.getElementById('GdpOrder').style.display = 'none';
+        document.getElementById('GdpOrder').label = 'choose again!';
         document.getElementById('numberOfYears').style.display = 'none';
         document.getElementById('labelForDensity').style.display = 'none';
     } else if (newCol == 'PopulationGrowth') {
         document.getElementById('PopulationGrowthOrder').style.display = 'block';
+        document.getElementById('PopulationGrowthOrder').label = 'population growth';
         document.getElementById('numberOfYears').style.display = 'block';
         document.getElementById('labelForDensity').style.display = 'block';
         document.getElementById('GdpOrder').style.display = 'none';
         document.getElementById('DensityOrder').style.display = 'none';
+        document.getElementById('GdpOrder').label = 'choose again!';
+        document.getElementById('DensityOrder').label = 'choose again!';
     } else if (newCol == 'Gdp') {
         document.getElementById('GdpOrder').style.display = 'block';
+        document.getElementById('GdpOrder').label = 'gdp';
         document.getElementById('DensityOrder').style.display = 'none';
         document.getElementById('PopulationGrowthOrder').style.display = 'none';
+        document.getElementById('DensityOrder').label = 'choose again!';
+        document.getElementById('PopulationGrowthOrder').label = 'choose again!';
         document.getElementById('numberOfYears').style.display = 'none';
         document.getElementById('labelForDensity').style.display = 'none';
     }
