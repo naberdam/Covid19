@@ -9,20 +9,20 @@ namespace Covid19.Models.ObjectClasses
 {
     public class CountrySickAndDeathsAndGrowth
     {
-        [JsonProperty("country")]
-        [JsonPropertyName("country")]
+        [JsonProperty("Country")]
+        [JsonPropertyName("Country")]
         public string Country { get; set; }
 
-        [JsonProperty("growth")]
-        [JsonPropertyName("growth")]
+        [JsonProperty("Growth")]
+        [JsonPropertyName("Growth")]
         public double Growth { get; set; }
 
-        [JsonProperty("cumulativeDeaths")]
-        [JsonPropertyName("cumulativeDeaths")]
+        [JsonProperty("Cumulative Deaths")]
+        [JsonPropertyName("Cumulative Deaths")]
         public int CumulativeDeaths { get; set; }
 
-        [JsonProperty("cumulativeCases")]
-        [JsonPropertyName("cumulativeCases")]
+        [JsonProperty("Cumulative Cases")]
+        [JsonPropertyName("Cumulative Cases")]
         public int CumulativeCases { get; set; }
     }
 }

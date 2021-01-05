@@ -9,12 +9,12 @@ namespace Covid19.Models.ObjectClasses
 {
     public class SpecificCountryAndDateAvgSick
     {
-        [JsonProperty("country")]
-        [JsonPropertyName("country")]
+        [JsonProperty("Country")]
+        [JsonPropertyName("Country")]
         public string Country { get; set; }
 
-        [JsonProperty("avgSick")]
-        [JsonPropertyName("avgSick")]
+        [JsonProperty("Avg Sick")]
+        [JsonPropertyName("Avg Sick")]
         public double AvgSick { get; set; }
     }
 }

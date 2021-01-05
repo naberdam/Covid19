@@ -40,7 +40,7 @@ namespace Covid19
             services.AddSingleton<ICountrySickDeathsAndGdpByGdpManager, CountrySickDeathsAndGdpByGdpManager>(); 
             services.AddSingleton<ICountryGrowthPopulation20YearsManager, CountryGrowthPopulation20YearsManager>(); 
             services.AddSingleton<ILngLtdOfCountryManager, LngLtdOfCountryManager>();
-            services.AddSingleton<ICountriesDeathsAndSickPreMillionBySickManager, CountriesDeathsAndSickPreMillionBySickManager>();
+            services.AddSingleton<ICountriesDeathsAndSickPerMillionBySickManager, CountriesDeathsAndSickPerMillionBySickManager>();
             services.AddSingleton<ICountriesDeathsVsDensity2020PerMillionManager, CountriesDeathsVsDensity2020PerMillionManager>();
             services.AddSingleton<ICountrySickAndDeathsAndGrowthManager, CountrySickAndDeathsAndGrowthManager>();
 

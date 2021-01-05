@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace Covid19.Models.Managers
 {
-    public class CountriesDeathsAndSickPreMillionBySickManager : ICountriesDeathsAndSickPreMillionBySickManager
+    public class CountriesDeathsAndSickPerMillionBySickManager : ICountriesDeathsAndSickPerMillionBySickManager
     {
         private MySqlDB mySqlDB;
 
-        public CountriesDeathsAndSickPreMillionBySickManager(MySqlDB db)
+        public CountriesDeathsAndSickPerMillionBySickManager(MySqlDB db)
         {
             mySqlDB = db;
         }
 
-        public IEnumerable<CountriesDeathsAndSickPreMillionBySick> GetBySick(string orderBy, string date)
+        public IEnumerable<CountriesDeathsAndSickPerMillionBySick> GetBySick(string orderBy, string date)
         { // yuval changed on 24.12
             List<object[]> listOfAvg = mySqlDB.GetSqlListWithoutParameters("select distinct Country, ( Cumulative_deaths *1000 / PopTotal) deathPerMillion, ( Cumulative_cases / PopTotal) sickPerMillion " +
                 "from " +
@@ -30,13 +30,13 @@ namespace Covid19.Models.Managers
                 "where time = 2020) density " +
                 "on sick.Country = density.Location " +
                 "order by sick.Cumulative_deaths " + orderBy);
-            return GlobalFunction.ConvertListObjectByGeneric<CountriesDeathsAndSickPreMillionBySick>(listOfAvg, ConvertObjectCountriesDeathsAndSickPreMillionBySick);
+            return GlobalFunction.ConvertListObjectByGeneric<CountriesDeathsAndSickPerMillionBySick>(listOfAvg, ConvertObjectCountriesDeathsAndSickPreMillionBySick);
         }
-        public static CountriesDeathsAndSickPreMillionBySick ConvertObjectCountriesDeathsAndSickPreMillionBySick(object[] infoFromDB)
+        public static CountriesDeathsAndSickPerMillionBySick ConvertObjectCountriesDeathsAndSickPreMillionBySick(object[] infoFromDB)
         {
             try
             {
-                return new CountriesDeathsAndSickPreMillionBySick
+                return new CountriesDeathsAndSickPerMillionBySick
                 {
                     Country = infoFromDB[0].ToString(),
                     DeathPerMillion = Convert.ToDouble(infoFromDB[1].ToString()),

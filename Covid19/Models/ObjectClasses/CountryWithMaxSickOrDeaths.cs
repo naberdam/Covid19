@@ -9,12 +9,12 @@ namespace Covid19.Models.ObjectClasses
 {
     public class CountryWithMaxSickOrDeaths
     {
-        [JsonProperty("country")]
-        [JsonPropertyName("country")]
+        [JsonProperty("Country")]
+        [JsonPropertyName("Country")]
         public string Country { get; set; }
 
-        [JsonProperty("maxSickOrDeaths")]
-        [JsonPropertyName("maxSickOrDeaths")]
+        [JsonProperty("Max Sick Or Deaths")]
+        [JsonPropertyName("Max Sick Or Deaths")]
         public int MaxSickOrDeaths { get; set; }
     }
 }

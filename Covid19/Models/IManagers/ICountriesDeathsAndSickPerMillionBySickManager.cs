@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Covid19.Models.IManagers
 {
-    public interface ICountriesDeathsAndSickPreMillionBySickManager
+    public interface ICountriesDeathsAndSickPerMillionBySickManager
     {
-        IEnumerable<CountriesDeathsAndSickPreMillionBySick> GetBySick(string orderBy, string date);
+        IEnumerable<CountriesDeathsAndSickPerMillionBySick> GetBySick(string orderBy, string date);
     }
 }

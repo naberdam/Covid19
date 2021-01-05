@@ -9,12 +9,12 @@ namespace Covid19.Models.ObjectClasses
 {
     public class CountryGrowthPopulation20Years
     {
-        [JsonProperty("country")]
-        [JsonPropertyName("country")]
+        [JsonProperty("Country")]
+        [JsonPropertyName("Country")]
         public string Country { get; set; }
 
-        [JsonProperty("dividePopulation")]
-        [JsonPropertyName("dividePopulation")]
+        [JsonProperty("Divide Population")]
+        [JsonPropertyName("Divide Population")]
         public double DividePopulation { get; set; }
     }
 }

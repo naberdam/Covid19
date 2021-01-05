@@ -9,20 +9,20 @@ namespace Covid19.Models.ObjectClasses
 {
     public class CountryDeathsSickPerMillionWithGdp
     {
-        [JsonProperty("country")]
-        [JsonPropertyName("country")]
+        [JsonProperty("Country")]
+        [JsonPropertyName("Country")]
         public string Country { get; set; }
 
-        [JsonProperty("deathPerMillion")]
-        [JsonPropertyName("deathPerMillion")]
+        [JsonProperty("Death Per Million")]
+        [JsonPropertyName("Death Per Million")]
         public double DeathPerMillion { get; set; }
 
-        [JsonProperty("sickPerMillion")]
-        [JsonPropertyName("sickPerMillion")]
+        [JsonProperty("Sick Per Million")]
+        [JsonPropertyName("Sick Per Million")]
         public double SickPerMillion { get; set; }
 
-        [JsonProperty("gdp")]
-        [JsonPropertyName("gdp")]
+        [JsonProperty("Gdp")]
+        [JsonPropertyName("Gdp")]
         public double Gdp { get; set; }
     }
 }

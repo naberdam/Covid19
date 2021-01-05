@@ -9,13 +9,13 @@ namespace Covid19.Models.ObjectClasses
 {
     public class CountriesDeathsVsDensity2020PerMillion
     {
-        [JsonProperty("country")]
-        [JsonPropertyName("country")]
+        [JsonProperty("Country")]
+        [JsonPropertyName("Country")]
         public string Country { get; set; }
 
 
-        [JsonProperty("popDensity")]
-        [JsonPropertyName("popDensity")]
+        [JsonProperty("Population Density")]
+        [JsonPropertyName("Population Density")]
         public double PopDensity { get; set; }
 
 
