@@ -21,7 +21,7 @@ namespace Covid19.Models.Managers
             List<object[]> listByDeaths = mySqlDB.GetSqlListWithoutParameters("select distinct Country, ( Cumulative_deaths*1000 / PopTotal) deathPerMillion, ( Cumulative_cases*1000 / PopTotal) sickPerMillion, PopDensity " +
                 "from (select distinct * from who_covid_19_global_data where Date_reported = '" + date + "') sick " +
                 "inner join (select distinct * from population_worldwide where time = 2020) density on sick.Country = density.Location " +
-                "order by sick.Cumulative_deaths " + orderBy);
+                "order by deathPerMillion " + orderBy);
             return GlobalFunction.ConvertListObjectByGeneric<CountriesDeathsVsDensity2020PerMillion>(listByDeaths, ConvertObjectCountriesDeathsVsDensity2020PerMillion);
         }
 
@@ -38,7 +38,7 @@ namespace Covid19.Models.Managers
             List<object[]> listBySick = mySqlDB.GetSqlListWithoutParameters("select distinct Country, ( Cumulative_deaths*1000 / PopTotal) deathPerMillion, ( Cumulative_cases*1000 / PopTotal) sickPerMillion, PopDensity " +
                 "from (select distinct * from who_covid_19_global_data where Date_reported = '" + date + "') sick " +
                 "inner join (select distinct * from population_worldwide where time = 2020) density on sick.Country = density.Location " +
-                "order by Cumulative_cases " + orderBy);
+                "order by sickPerMillion " + orderBy);
             return GlobalFunction.ConvertListObjectByGeneric<CountriesDeathsVsDensity2020PerMillion>(listBySick, ConvertObjectCountriesDeathsVsDensity2020PerMillion);
         }
         /*public IEnumerable<CountriesDeathsVsDensity2020PerMillion> GetByTotal(string orderBy, string date)
