@@ -61,8 +61,8 @@ function onSubmitSpecificDate(event) {
         url: url,
         type: "GET",
         success: function (data) {
-            let number = data[0].newCases;
-            let country = data[0].country
+            let number = data[0]['New Cases'];
+            let country = data[0].Country
             var latLong = getLatLong(country);
             addMarker(latLong, country, number, event.target.elements.state.value,date);
 
