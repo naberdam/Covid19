@@ -177,9 +177,14 @@ function onSubmitSpecificCountrySpecificDateDeathOrSick(event) {
             if ('sum' in data[0]) {
                 number = data[0].sum;
                 stringToSend = ' on '
-            } else if ('avgSick' in data[0]) {
-                number = data[0].avgSick;
-                stringToSend = ' in average in each day in the week of '
+            } else if ('Avg Sick' in data[0]) {
+                number = data[0]['Avg Sick'];
+                if (untilOrThisDate == 'Avg') {
+                    stringToSend = ' in average in each day in the week of '
+                } else if (untilOrThisDate == 'Div') {
+                    stringToSend = ' relative to last week in the week of '
+                }
+                
             }
             var latLong = getLatLong(country);
             addMarker(latLong, country, number, event.target.elements.state.value, date, stringToSend);
